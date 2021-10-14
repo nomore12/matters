@@ -4,9 +4,22 @@ import { ImageList, ImageListItem } from '@mui/material';
 function Content() {
   return (
     <ImageList
-      sx={{ width: 540, height: '100%' }}
       cols={3}
-      rowHeight={540 / 3 - 6}>
+      rowHeight={540 / 3 - 6}
+      sx={{
+        height: '100%',
+        '&::-webkit-scrollbar': {
+          width: '0.4em',
+        },
+        '&::-webkit-scrollbar-track': {
+          boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+          webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          backgroundColor: 'red',
+          outline: '1px solid slategrey',
+        },
+      }}>
       {itemData.map((item) => (
         <ImageListItem
           key={item.img}

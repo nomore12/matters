@@ -15,17 +15,23 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { styled } from '@mui/material/styles';
 import Logo from '../assets/logo192.png';
 import { Navbar, Category, Content } from '../components/index';
+import { makeStyles } from '@mui/styles';
+
+const useStyles = makeStyles({
+  root: { backgroundColor: 'red' },
+});
 
 function Landing() {
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up('sm'));
+  const classes = useStyles();
 
   return (
     <Box sx={{ marginY: '20px', margin: `${matches ? '' : '0'}` }}>
       <Container
         maxWidth="lg"
         sx={{
-          border: '1px solid black',
+          // border: '1px solid black',
           height: matches ? 'calc(100vh - 40px)' : '100vh',
           padding: '0px !important',
         }}>
@@ -53,16 +59,13 @@ function Landing() {
             container
             sx={{
               width: '250px !important',
-              backgroundColor: 'lightblue',
               marginBottom: '10px',
             }}>
             <img src={Logo} height={matches ? '100px' : '60px'} />
           </Grid>
           <Hidden only={['xs', 'sm']}>
-            <Grid
-              md={'auto'}
-              sx={{ backgroundColor: 'lightpink', marginBottom: '10px' }}>
-              hidden
+            <Grid md sx={{ marginBottom: '10px', padding: '20px' }}>
+              {/* hidden */}
             </Grid>
           </Hidden>
           <Hidden only={'xs'}>
@@ -71,7 +74,7 @@ function Landing() {
               sm={9}
               md={8}
               sx={{
-                backgroundColor: 'lightgray',
+                // backgroundColor: 'lightgray',
                 width: '100%',
                 display: 'flex',
                 justifyContent: 'flex-end',
@@ -95,23 +98,17 @@ function Landing() {
             </Grid>
           </Hidden>
           <Hidden only={['xs', 'sm']}>
-            <Grid
-              md={'auto'}
-              sx={{
-                backgroundColor: 'lightpink',
-              }}>
-              hidden
-            </Grid>
+            <Grid md={'auto'} sx={{ padding: '20px' }}></Grid>
           </Hidden>
           <Grid
             xs={12}
             sm={9}
             md={8}
             sx={{
-              padding: '0px',
+              padding: '0px 3px 0px 0px',
               display: 'flex',
               justifyContent: 'flex-end',
-              height: 'calc(100vh - 40px - 111px)',
+              height: 'calc(100vh - 40px - 120px)',
               overflow: 'hidden',
             }}>
             <Content />

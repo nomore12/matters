@@ -13,9 +13,11 @@ const Container = styled.div`
 `;
 
 const LogoComp = styled(Logo)`
-  /* position: absolute;
-  left: 500px;
-  top: 500px; */
+  height: ${props => props.height};
+
+  @media only screen and (max-width: 768px) {
+    height: 72px;
+  }
 `;
 
 function Landing() {
@@ -28,8 +30,8 @@ function Landing() {
 
   return <Container>
       <Fade in={fade} easing={{enter: 'ease-in'}} timeout={3000}>
-        <Link to="/home">
-          <LogoComp height="160" />
+        <Link to="/main">
+          <LogoComp height="160px" />
         </Link>
       </Fade>
   </Container>

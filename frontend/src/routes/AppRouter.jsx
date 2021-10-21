@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Landing, About, Admin, Contact, Login, Matters, Project, Home } from 'pages/index';
+import { Main } from 'containers/index';
 import { Navigation } from 'components';
 
 function AppRouter() {
@@ -9,7 +10,7 @@ function AppRouter() {
       <Router>
         <Switch>
           <Route exact path="/" component={Landing} />
-          <Route path="/home" component={Home} />
+          <Route path="/main" component={Main} />
           <Route path="/login" component={Login} />
           <Route path="/admin" component={Admin} />
           <Route path="/about" component={About} />

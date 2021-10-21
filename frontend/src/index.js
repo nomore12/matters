@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import './Index.css';
+import 'static/fonts/fonts.css';
 import store from 'store/Store';
 import { Provider } from 'react-redux';
 

@@ -26,7 +26,7 @@ const ContentArea = styled.div`
 const Block = styled.div`
   width: ${(props) => (props.width)};
   height: ${(props) => (props.height)};
-  /* border: 1px solid black; */
+  border: 1px solid black;
   /* https://db2dev.tistory.com/entry/React-resize-이벤트-다루기 */
   /* display: ${props => (props.width < 20 ? 'none' : 'flex')}; */
 `;

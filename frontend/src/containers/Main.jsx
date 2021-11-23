@@ -1,14 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
-import { Navigation } from 'components';
+import { Navigation, Content, Menu } from 'components';
 
 const Container = styled.div`
   display: flex;
   width: 100%;
   height: 100vh;
   flex-direction: column;
-  background-color: aqua;
   padding: 0px 120px;
 `;
 
@@ -22,12 +21,14 @@ const Block = styled.div`
   height: ${(props) => (props.height)};
   border: 1px solid black;
   padding-top: ${props => props.paddingTop};
+  flex-grow: ${props => props.glow ? props.glow : 'none'};
   /* https://db2dev.tistory.com/entry/React-resize-이벤트-다루기 */
   /* display: ${props => (props.width < 20 ? 'none' : 'flex')}; */
 `;
 
 const LogoWrapper = styled.div`
   display: flex;
+  width: 256px;
   /* align-items: flex-end;
   justify-content: flex-start; */
 `;
@@ -46,23 +47,32 @@ const CONTENT_WIDTH = 640;
 const HEADER_HEIGHT = 136;
 
 function Main() {
-  const firstRowStyles = {display: 'flex', alignItems: 'flex-end'}
+  const firstRowStyles = { display: 'flex', alignItems: 'flex-end' };
+  const contRef = useRef(null);
+
+  useEffect(() => {
+    window.addEventListener("resize", (e) => {
+      if(contRef.current.clientWidth > 1136) console.log(contRef.current.clientWidth);
+    })
+  }, []);
 
   return (
     <>
-      <Container>
+      <Container ref={contRef}>
         <Row>
-          <Block width={`${ASIDE_WIDTH}px`} height={`${HEADER_HEIGHT}px`} style={firstRowStyles}>
+          <Block>
             <LogoWrapper >
               <LogoComp height={`${86}px`}></LogoComp>
             </LogoWrapper>
           </Block>
-          {/* navigation */}
-          <Block width={`${CONTENT_WIDTH}px`} height={`${HEADER_HEIGHT}px`} style={firstRowStyles}><Navigation /></Block>
+          {/* 240 + 256 + 640 */}
+          <Block glow={1}></Block>
+          <Block ><Navigation /></Block>
         </Row>
         <Row>
-          <Block paddingTop={"40px"} width={`${ASIDE_WIDTH}px`} height={ `calc(100vh - ${HEADER_HEIGHT}px)`}>menu</Block>
-          <Block paddingTop={"40px"} width={`${CONTENT_WIDTH}px`} height={ `calc(100vh - ${HEADER_HEIGHT}px)`}>content</Block>
+          <Block><Menu></Menu></Block>
+          <Block glow={1}></Block>
+          <Block><Content></Content></Block>
         </Row>
       </Container>
     </>

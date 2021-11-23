@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const NaveWrapper = styled.div`
   height: 100%;
-  width: 100%;
+  width: 640px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;

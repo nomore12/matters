@@ -1,8 +1,14 @@
 import React from 'react';
+import styled from 'styled-components';
 import { ImageList, ImageListItem } from '@mui/material';
 
-function Content() {
+const Container = styled.div`
+  width: 640px;
+`;
+
+const Content = () => {
   return (
+    <Container>
     <ImageList
       cols={3}
       rowHeight={540 / 3 - 6}
@@ -20,19 +26,20 @@ function Content() {
           outline: '1px solid slategrey',
         },
       }}>
-      {itemData.map((item) => (
+      {itemData.map((item, index) => (
         <ImageListItem
-          key={item.img}
-          sx={{ width: '100%', height: 'calc(100vw / 3 - 12px)' }}>
+        key={index}
+        sx={{ width: '100%', height: 'calc(100vw / 3 - 12px)' }}>
           <img
             src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
             srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
             alt={item.title}
             loading="lazy"
-          />
+            />
         </ImageListItem>
       ))}
     </ImageList>
+      </Container>
   );
 }
 

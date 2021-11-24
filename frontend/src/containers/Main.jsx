@@ -8,11 +8,14 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   flex-direction: column;
-  padding: 0px 120px;
+  padding: 20px 120px;
+  box-sizing: border-box;
 `;
 
 const Row = styled.div`
   display: flex;
+  height: ${props => props.height ? props.height : 'auto'};
+  flex-grow: ${props => props.grow};
   justify-content: space-between;
 `;
 
@@ -21,7 +24,7 @@ const Block = styled.div`
   height: ${(props) => (props.height)};
   border: 1px solid black;
   padding-top: ${props => props.paddingTop};
-  flex-grow: ${props => props.glow ? props.glow : 'none'};
+  flex-grow: ${props => props.glow ? props.glow : '0'};
   /* https://db2dev.tistory.com/entry/React-resize-이벤트-다루기 */
   /* display: ${props => (props.width < 20 ? 'none' : 'flex')}; */
 `;
@@ -59,7 +62,7 @@ function Main() {
   return (
     <>
       <Container ref={contRef}>
-        <Row>
+        <Row  margin="1rem 0 0 0" height="136px">
           <Block>
             <LogoWrapper >
               <LogoComp height={`${86}px`}></LogoComp>
@@ -69,10 +72,11 @@ function Main() {
           <Block glow={1}></Block>
           <Block ><Navigation /></Block>
         </Row>
-        <Row>
+        <Row grow="1" height="1000px">
           <Block><Menu></Menu></Block>
           <Block glow={1}></Block>
-          <Block><Content></Content></Block>
+          {/* <Block><Content></Content></Block> */}
+          <Content />
         </Row>
       </Container>
     </>

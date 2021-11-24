@@ -30,8 +30,9 @@ const ImageContainer = styled.div`
 
 const ImageItem = styled.img`
   box-sizing: border-box;
-  /* margin: 0 4px 4px 0; */
-  
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Content = () => {

@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
 import { Navigation, Content, Menu } from 'components';
+import { Landing, About, Admin, Contact, Login, Matters, Project, Home } from 'pages/index';
+
 
 const Container = styled.div`
   display: flex;
@@ -73,11 +76,19 @@ function Main() {
           <Block ><Navigation /></Block>
         </Row>
         <Row grow="1" height="1000px">
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route path="/about" component={About} />
+            <Route path="/project" component={Project} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/matters" component={Matters} />
+          </Switch>
+        </Row>
+        {/* <Row grow="1" height="1000px">
           <Block><Menu></Menu></Block>
           <Block glow={1}></Block>
-          {/* <Block><Content></Content></Block> */}
           <Content />
-        </Row>
+        </Row> */}
       </Container>
     </>
   )

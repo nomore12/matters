@@ -7,6 +7,7 @@ import './App.css';
 import { auth } from 'firebaseConfig';
 import { LoginPage } from 'pages/index';
 import AppRouter from 'routes/AppRouter';
+import { Main } from 'containers';
 
 const AppContainer = styled.div`
   height: 100%;
@@ -18,20 +19,9 @@ function App() {
 
   return (
     <AppContainer className="App">
-      {/* <CssBaseline /> */}
-      <AppRouter />
-      {/* router */}
-
-
-
-      {/* <LoginPage /> */}
-      {/* <Router>
-        <Switch>
-          <Route exact path="/">
-            <Landing />
-          </Route>
-        </Switch>
-      </Router> */}
+      {/* <AppRouter /> */}
+      <Main></Main>
+      {/* <h1>hello</h1> */}
     </AppContainer>
   );
 }

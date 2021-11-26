@@ -10,10 +10,10 @@ export const userSlice = createSlice({
       },
       logout: (state) => {
         state.loggedIn = false;
-      }
-    }
-  }
-})
+      },
+    },
+  },
+});
 
 export const { login, logout } = userSlice.reducer;
 export default userSlice.reducer;

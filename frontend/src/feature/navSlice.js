@@ -10,10 +10,10 @@ export const navSlice = createSlice({
       },
       logout: (state) => {
         state.loggedIn = false;
-      }
-    }
-  }
-})
+      },
+    },
+  },
+});
 
 export const { login, logout } = navSlice.reducer;
 export default navSlice.reducer;

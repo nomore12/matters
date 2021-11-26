@@ -18,12 +18,12 @@ const NaveWrapper = styled.div`
 function Navigation() {
   return (
     <NaveWrapper>
-      <Link to="/about">ABOUT</Link>
-      <Link to="/project">PROJECT</Link>
-      <Link to="/contact">CONTACT</Link>
-      <Link to="matters">MATTERS</Link>
+      <Link to="/main/about">ABOUT</Link>
+      <Link to="/main/project">PROJ`ECT</Link>
+      <Link to="/main/contact">CONTACT</Link>
+      <Link to="/main/matters">MATTERS</Link>
     </NaveWrapper>
-  )
+  );
 }
 
 export default Navigation;

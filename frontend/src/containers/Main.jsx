@@ -3,8 +3,16 @@ import styled from 'styled-components';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
 import { Navigation, Content, Menu } from 'components';
-import { Landing, About, Admin, Contact, Login, Matters, Project, Home } from 'pages/index';
-
+import {
+  Landing,
+  About,
+  Admin,
+  Contact,
+  Login,
+  Matters,
+  Project,
+  Home,
+} from 'pages/index';
 
 const Container = styled.div`
   display: flex;
@@ -17,19 +25,22 @@ const Container = styled.div`
 
 const Row = styled.div`
   display: flex;
-  height: ${props => props.height ? props.height : 'auto'};
-  flex-grow: ${props => props.grow};
+  min-height: ${(props) => (props.height ? props.height : 'auto')};
+  max-height: ${(props) => props.maxHeight};
+  flex-grow: ${(props) => props.grow};
   justify-content: space-between;
 `;
 
 const Block = styled.div`
-  width: ${(props) => (props.width)};
-  height: ${(props) => (props.height)};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   border: 1px solid black;
-  padding-top: ${props => props.paddingTop};
-  flex-grow: ${props => props.glow ? props.glow : '0'};
+  padding-top: ${(props) => props.paddingTop};
+  flex-grow: ${(props) => (props.glow ? props.glow : '0')};
+  display: flex;
+  justify-content: flex-end;
   /* https://db2dev.tistory.com/entry/React-resize-이벤트-다루기 */
-  /* display: ${props => (props.width < 20 ? 'none' : 'flex')}; */
+  /* display: ${(props) => (props.width < 20 ? 'none' : 'flex')}; */
 `;
 
 const LogoWrapper = styled.div`
@@ -40,7 +51,7 @@ const LogoWrapper = styled.div`
 `;
 
 const LogoComp = styled(Logo)`
-  height: ${props => props.height};
+  height: ${(props) => props.height};
   width: 123px;
 
   @media only screen and (max-width: 768px) {
@@ -56,42 +67,45 @@ function Main() {
   const firstRowStyles = { display: 'flex', alignItems: 'flex-end' };
   const contRef = useRef(null);
 
-  useEffect(() => {
-    window.addEventListener("resize", (e) => {
-      if(contRef.current.clientWidth > 1136) console.log(contRef.current.clientWidth);
-    })
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("resize", (e) => {
+  //     if(contRef.current.clientWidth > 1136) console.log(contRef.current.clientWidth);
+  //   })
+  // }, []);
 
   return (
     <>
       <Container ref={contRef}>
-        <Row  margin="1rem 0 0 0" height="136px">
+        <Row margin="1rem 0 0 0" height="136px">
           <Block>
-            <LogoWrapper >
+            <LogoWrapper>
               <LogoComp height={`${86}px`}></LogoComp>
             </LogoWrapper>
           </Block>
           {/* 240 + 256 + 640 */}
           <Block glow={1}></Block>
-          <Block ><Navigation /></Block>
+          <Block>
+            <Navigation />
+          </Block>
         </Row>
-        <Row grow="1" height="1000px">
-          <Switch>
-            <Route exact path="/" component={Main} />
-            <Route path="/about" component={About} />
-            <Route path="/project" component={Project} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/matters" component={Matters} />
-          </Switch>
-        </Row>
-        {/* <Row grow="1" height="1000px">
-          <Block><Menu></Menu></Block>
+        <Row
+          maxHeight={`${contRef.current.clientHeight - HEADER_HEIGHT - 40}px`}>
+          <Block>
+            <Menu></Menu>
+          </Block>
           <Block glow={1}></Block>
-          <Content />
-        </Row> */}
+          <Block>
+            <Switch>
+              <Route path="/main/about" component={About} />
+              <Route path="/main/project" component={Content} />
+              <Route path="/main/contact" component={Contact} />
+              <Route path="/main/matters" component={Matters} />
+            </Switch>
+          </Block>
+        </Row>
       </Container>
     </>
-  )
+  );
 }
 
 export default Main;

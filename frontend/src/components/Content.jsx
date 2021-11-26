@@ -10,7 +10,7 @@ const Container = styled.div`
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 10px;
-  overflow-y: auto;
+  overflow-y: scroll;
   padding: 20px 0;
 `;
 
@@ -38,20 +38,18 @@ const ImageItem = styled.img`
 const Content = () => {
   return (
     <Container>
-      {
-        itemData.map((item, index) => {
-          return (
-            <div>
-              <ImageItem
-                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt={item.title}
-                loading="lazy"
-              />
-            </div>
-          )
-        })
-      }
+      {itemData.map((item, index) => {
+        return (
+          <div key={index}>
+            <ImageItem
+              src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+              srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              alt={item.title}
+              loading="lazy"
+            />
+          </div>
+        );
+      })}
       {/* <ImageList
         cols={3}
         rowHeight={540 / 3 - 6}
@@ -84,7 +82,7 @@ const Content = () => {
       </ImageList> */}
     </Container>
   );
-}
+};
 
 export default Content;
 

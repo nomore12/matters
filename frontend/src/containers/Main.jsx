@@ -67,11 +67,10 @@ function Main() {
   const firstRowStyles = { display: 'flex', alignItems: 'flex-end' };
   const contRef = useRef(null);
 
-  // useEffect(() => {
-  //   window.addEventListener("resize", (e) => {
-  //     if(contRef.current.clientWidth > 1136) console.log(contRef.current.clientWidth);
-  //   })
-  // }, []);
+  useEffect(() => {
+    // console.log(contRef);
+    // console.log(document.documentElement.offsetHeight);
+  }, []);
 
   return (
     <>
@@ -89,7 +88,9 @@ function Main() {
           </Block>
         </Row>
         <Row
-          maxHeight={`${contRef.current.clientHeight - HEADER_HEIGHT - 40}px`}>
+          maxHeight={`${
+            document.documentElement.offsetHeight - HEADER_HEIGHT - 40
+          }px`}>
           <Block>
             <Menu></Menu>
           </Block>

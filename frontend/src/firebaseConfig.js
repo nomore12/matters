@@ -1,17 +1,17 @@
 // Import the functions you need from the SDKs you need
-import firebase from "firebase/compat/app";
+import firebase from 'firebase/compat/app';
 // import { initializeApp } from "firebase/app";
 import 'firebase/auth';
-import {  getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyA2w9bwAC9e5FlbNm7izRk3yXpFbGuYulU",
-  authDomain: "matters-a5b7b.firebaseapp.com",
-  projectId: "matters-a5b7b",
-  storageBucket: "matters-a5b7b.appspot.com",
-  messagingSenderId: "730944483120",
-  appId: "1:730944483120:web:5033c781e6fc3b733322f5"
+  apiKey: 'AIzaSyA2w9bwAC9e5FlbNm7izRk3yXpFbGuYulU',
+  authDomain: 'matters-a5b7b.firebaseapp.com',
+  projectId: 'matters-a5b7b',
+  storageBucket: 'matters-a5b7b.appspot.com',
+  messagingSenderId: '730944483120',
+  appId: '1:730944483120:web:5033c781e6fc3b733322f5',
 };
 
 // Initialize Firebase
@@ -47,4 +47,3 @@ auth.languageCode = 'ko';
 //     console.log(credential);
 //     // ...
 //   });
-  

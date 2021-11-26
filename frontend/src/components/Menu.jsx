@@ -18,7 +18,7 @@ const Menu = () => {
         <li>menu 1</li>
       </ul>
     </Container>
-  )
-}
+  );
+};
 
 export default Menu;

@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
+import { About, Project, Contact, Matters } from 'pages';
 
 const NaveWrapper = styled.div`
   height: 100%;
@@ -17,12 +18,12 @@ const NaveWrapper = styled.div`
 function Navigation() {
   return (
     <NaveWrapper>
-      <button>ABOUT</button>
-      <button>PROJECT</button>
-      <button>CONTACT</button>
-      <button>MATTERS</button>
+      <Link to="/main/about">ABOUT</Link>
+      <Link to="/main/project">PROJ`ECT</Link>
+      <Link to="/main/contact">CONTACT</Link>
+      <Link to="/main/matters">MATTERS</Link>
     </NaveWrapper>
-  )
+  );
 }
 
 export default Navigation;

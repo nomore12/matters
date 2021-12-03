@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import { configureStore } from 'store/Store';
 import { useSelector } from 'react-redux';
 
 const Container = styled.aside`
@@ -34,14 +33,14 @@ const MenuButton = styled.button`
 `;
 
 const Menu = () => {
-  const store = useSelector((store) => store.nav.navState);
-  useEffect(() => {
-    console.log(store);
-  });
+  const state = useSelector((store) => store.nav.navState);
+  // useEffect(() => {
+  //   console.log(state);
+  // });
 
   return (
     <Container>
-      {store === 'project' && (
+      {state === 'PROJECT' && (
         <MenuList>
           <MenuListItem>
             <MenuButton>all</MenuButton>

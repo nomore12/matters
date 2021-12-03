@@ -11,7 +11,7 @@ const Container = styled.div`
   justify-content: flex-end;
   gap: 10px;
   overflow-y: scroll;
-  padding: 20px 0;
+  /* padding: 20px 0; */
 `;
 
 const ImageContainer = styled.div`
@@ -45,7 +45,7 @@ const Content = () => {
               src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
               srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
               alt={item.title}
-              loading="lazy"
+              // loading="lazy"
             />
           </div>
         );

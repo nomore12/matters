@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
-import { Navigation, Content, Menu } from 'components';
+import { Navigation, Content, Menu, MenuTitle } from 'components';
 import { About, Contact, Matters, Project } from 'pages/index';
-import { configureStore } from 'store/Store';
 import { useDispatch, useSelector } from 'react-redux';
-// import { About, Contact, Matters } from 'pages/index';
+import { navSlice } from 'feature/navSlice';
+import { useHistory } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -52,22 +52,36 @@ const LogoComp = styled(Logo)`
 // const CONTENT_WIDTH = 640;
 const HEADER_HEIGHT = 136;
 
-function Main() {
-  const [menu, setMenu] = useState('');
-  const [navigation, setNavigation] = useState('');
+function getActions(curr) {
+  switch (curr) {
+    case 'ABOUT':
+      return navSlice.actions.about;
+    case 'PROJECT':
+      return navSlice.actions.project;
+    case 'CONTACT':
+      return navSlice.actions.contact;
+    case 'MATTERS':
+      return navSlice.actions.matters;
+    default:
+      return navSlice.actions.landing;
+  }
+}
 
+function Main() {
+  const { state } = useSelector((state) => state.nav.navState);
   const contRef = useRef(null);
   const dispatch = useDispatch();
-
-  const onNavClick = (currentNav) => {
-    console.log(currentNav);
-    setNavigation(currentNav);
-  };
+  const history = useHistory();
 
   useEffect(() => {
-    // console.log(contRef);
-    // console.log(document.documentElement.offsetHeight);
-  }, []);
+    console.log(state);
+    return history.listen((location) => {
+      console.log(location);
+      if (history.action === 'POP') {
+        dispatch(getActions(state)());
+      }
+    });
+  }, [history]);
 
   return (
     <>
@@ -75,24 +89,30 @@ function Main() {
         <Row margin="1rem 0 0 0" height="136px">
           <Block>
             <LogoWrapper>
-              <LogoComp height={`${86}px`}></LogoComp>
+              <Link
+                to="/main"
+                onClick={() => dispatch(navSlice.actions.landing())}>
+                <LogoComp height={`${86}px`}></LogoComp>
+              </Link>
             </LogoWrapper>
           </Block>
           {/* 240 + 256 + 640 */}
           <Block glow={1}></Block>
           <Block>
-            <Navigation onClick={onNavClick} />
+            <Navigation />
           </Block>
         </Row>
         <Row
           maxHeight={`${
             document.documentElement.offsetHeight - HEADER_HEIGHT - 40
           }px`}>
-          <Block>
+          <Block paddingTop="40px">
             <Route exact path="/main/project" component={Menu} />
           </Block>
-          <Block glow={1}></Block>
-          <Block>
+          <Block glow={1} paddingTop="40px">
+            <MenuTitle />
+          </Block>
+          <Block paddingTop="40px">
             <Switch>
               <Route path="/main/about" component={About} />
               <Route path="/main/project" component={Content} />

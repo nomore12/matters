@@ -1,28 +1,38 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const stateStack = [''];
+
 export const navSlice = createSlice({
   name: 'nav',
   initialState: {
-    navState: 'landing',
+    navState: '',
+    stateStack: stateStack,
   },
   reducers: {
     landing: (state) => {
-      state.navState = 'landing';
+      state.navState = setState(state.navState, state.stateStack, '');
     },
     about: (state) => {
-      state.navState = 'about';
+      state.navState = setState(state.navState, state.stateStack, 'ABOUT');
     },
     project: (state) => {
-      state.navState = 'project';
+      state.navState = setState(state.navState, state.stateStack, 'PROJECT');
     },
     contact: (state) => {
-      state.navState = 'contact';
+      state.navState = setState(state.navState, state.stateStack, 'CONTACT');
     },
     matters: (state) => {
-      state.navState = 'matters';
+      state.navState = setState(state.navState, state.stateStack, 'MATTERS');
     },
   },
 });
+
+function setState(state, stateArr, curr) {
+  state = curr;
+  stateArr[0] !== curr && stateArr.unshift(curr);
+  stateArr.length > 30 && stateArr.pop();
+  return curr;
+}
 
 export const { landing, about, project, contact, matters } = navSlice.actions;
 export default navSlice.reducer;

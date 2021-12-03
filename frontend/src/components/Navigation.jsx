@@ -15,13 +15,21 @@ const NaveWrapper = styled.div`
   }
 `;
 
-function Navigation() {
+function Navigation(props) {
   return (
     <NaveWrapper>
-      <Link to="/main/about">ABOUT</Link>
-      <Link to="/main/project">PROJ`ECT</Link>
-      <Link to="/main/contact">CONTACT</Link>
-      <Link to="/main/matters">MATTERS</Link>
+      <Link to="/main/about" onClick={() => props.onClick('about')}>
+        ABOUT
+      </Link>
+      <Link to="/main/project" onClick={() => props.onClick('project')}>
+        PROJECT
+      </Link>
+      <Link to="/main/contact" onClick={() => props.onClick('contact')}>
+        CONTACT
+      </Link>
+      <Link to="/main/matters" onClick={() => props.onClick('matters')}>
+        MATTERS
+      </Link>
     </NaveWrapper>
   );
 }

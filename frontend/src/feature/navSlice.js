@@ -3,17 +3,26 @@ import { createSlice } from '@reduxjs/toolkit';
 export const navSlice = createSlice({
   name: 'nav',
   initialState: {
-    loggedIn: 'landing',
-    reducer: {
-      login: (state) => {
-        state.loggedIn = true;
-      },
-      logout: (state) => {
-        state.loggedIn = false;
-      },
+    navState: 'landing',
+  },
+  reducers: {
+    landing: (state) => {
+      state.navState = 'landing';
+    },
+    about: (state) => {
+      state.navState = 'about';
+    },
+    project: (state) => {
+      state.navState = 'project';
+    },
+    contact: (state) => {
+      state.navState = 'contact';
+    },
+    matters: (state) => {
+      state.navState = 'matters';
     },
   },
 });
 
-export const { login, logout } = navSlice.reducer;
+export const { landing, about, project, contact, matters } = navSlice.actions;
 export default navSlice.reducer;

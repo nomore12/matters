@@ -3,16 +3,9 @@ import styled from 'styled-components';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
 import { Navigation, Content, Menu } from 'components';
-import {
-  Landing,
-  About,
-  Admin,
-  Contact,
-  Login,
-  Matters,
-  Project,
-  Home,
-} from 'pages/index';
+import { About, Contact, Matters, Project } from 'pages/index';
+import { configureStore } from 'store/Store';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -39,8 +32,6 @@ const Block = styled.div`
   flex-grow: ${(props) => (props.glow ? props.glow : '0')};
   display: flex;
   justify-content: flex-end;
-  /* https://db2dev.tistory.com/entry/React-resize-이벤트-다루기 */
-  /* display: ${(props) => (props.width < 20 ? 'none' : 'flex')}; */
 `;
 
 const LogoWrapper = styled.div`
@@ -64,8 +55,8 @@ const CONTENT_WIDTH = 640;
 const HEADER_HEIGHT = 136;
 
 function Main() {
-  const firstRowStyles = { display: 'flex', alignItems: 'flex-end' };
   const contRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // console.log(contRef);

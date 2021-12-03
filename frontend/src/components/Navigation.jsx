@@ -2,6 +2,9 @@ import React from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import { About, Project, Contact, Matters } from 'pages';
+import { navSlice } from 'feature/navSlice';
+import { useDispatch } from 'react-redux';
+import { landing, about, project, contact, matters } from 'feature/navSlice';
 
 const NaveWrapper = styled.div`
   height: 100%;
@@ -16,12 +19,22 @@ const NaveWrapper = styled.div`
 `;
 
 function Navigation() {
+  const dispatch = useDispatch();
+
   return (
     <NaveWrapper>
-      <Link to="/main/about">ABOUT</Link>
-      <Link to="/main/project">PROJ`ECT</Link>
-      <Link to="/main/contact">CONTACT</Link>
-      <Link to="/main/matters">MATTERS</Link>
+      <Link onClick={() => dispatch(about())} to="/main/about">
+        ABOUT
+      </Link>
+      <Link onClick={() => dispatch(project())} to="/main/project">
+        PROJ`ECT
+      </Link>
+      <Link onClick={() => dispatch(contact())} to="/main/contact">
+        CONTACT
+      </Link>
+      <Link onClick={() => dispatch(matters())} to="/main/matters">
+        MATTERS
+      </Link>
     </NaveWrapper>
   );
 }

@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { navSlice } from 'feature/navSlice';
 
 const Container = styled.aside`
   width: 256px;
@@ -27,41 +28,77 @@ const MenuButton = styled.button`
     text-shadow: 0px 1px 7px rgba(0, 0, 0, 0.22);
   }
 
-  &:active {
+  /* &:active {
     text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05);
-  }
+  } */
 `;
 
 const Menu = () => {
-  const state = useSelector((store) => store.nav.navState);
-  // useEffect(() => {
-  //   console.log(state);
-  // });
+  const state = useSelector((store) => store.nav);
+  const dispatch = useDispatch();
+  const [currentMenu, setCurrentMenu] = useState(state.category);
+
+  const onButtonClick = (curr) => {
+    dispatch(navSlice.actions.setCategory(curr));
+    setCurrentMenu(curr);
+  };
 
   return (
     <Container>
-      {state === 'PROJECT' && (
+      {state.navState === 'PROJECT' && (
         <MenuList>
           <MenuListItem>
-            <MenuButton>all</MenuButton>
+            <MenuButton
+              textShadow={
+                currentMenu === 'all' ? '0px 4px 8px rgba(0, 0, 0, 0.5)' : null
+              }
+              onClick={() => onButtonClick('all')}>
+              all
+            </MenuButton>
           </MenuListItem>
           <MenuListItem>
-            <MenuButton>menu 1</MenuButton>
+            <MenuButton
+              textShadow={
+                currentMenu === 'first'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('first')}>
+              first
+            </MenuButton>
           </MenuListItem>
           <MenuListItem>
-            <MenuButton>menu 1</MenuButton>
+            <MenuButton
+              textShadow={
+                currentMenu === 'second'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('second')}>
+              second
+            </MenuButton>
           </MenuListItem>
           <MenuListItem>
-            <MenuButton>menu 1</MenuButton>
+            <MenuButton
+              textShadow={
+                currentMenu === 'third'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('third')}>
+              third
+            </MenuButton>
           </MenuListItem>
           <MenuListItem>
-            <MenuButton>menu 1</MenuButton>
-          </MenuListItem>
-          <MenuListItem>
-            <MenuButton>menu 1</MenuButton>
-          </MenuListItem>
-          <MenuListItem>
-            <MenuButton>menu 1</MenuButton>
+            <MenuButton
+              textShadow={
+                currentMenu === 'fourth'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('fourth')}>
+              fourth
+            </MenuButton>
           </MenuListItem>
         </MenuList>
       )}

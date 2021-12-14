@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  width: 640px;
-  flex-direction: column;
-  height: 100%;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
+  width: 640px;
+  height: 100%;
+  align-content: flex-start;
   gap: 10px;
   padding-left: 80px;
+  flex-wrap: wrap;
+  overflow-y: auto;
 
   & h4 {
     margin: 0px;
@@ -20,36 +20,60 @@ const Container = styled.div`
   }
 `;
 
+const NameComp = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const BoldName = styled.div`
+  font-weight: 700;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const NameBox = (props) => {
+  return (
+    <NameComp>
+      <div>{props.first}</div>
+      <div>{'\u00A0/\u00A0'}</div>
+      <BoldName>{props.second}</BoldName>
+    </NameComp>
+  );
+};
+
 function About() {
   return (
     <Container>
-      <p>
-        최윤성 / <b>Yoonsung Choi</b>
-        <br />
-        소장 / <b>Director</b>
-        <br />
-        아름지기 아트디렉터 / <b>Art Director at Arumjigi Foundation</b>
-      </p>
-      <p>
-        매스 앤 매터스./<b>Mass and Matters.</b>
-      </p>
-      <p>
-        <b>MASS</b>
-        <br />
-        1. (정확한 형체가 없는) 덩어리
-        <br />
-        2. (양이) 많은 ~ <br />
-        3. (흔이 제멋대로 모여 있는 많은 사람·사물의) 무리
-      </p>
-      <p>
-        <b>MATTERS</b>
-        <br />
-        1. (고려하거나 처리해야 할) 문제
-        <br />
-        2. 상황, 사태, 사정
-        <br />
-        3. (걱정·고민 등의 원인이 되는)문제
-      </p>
+      <NameBox first="최윤성" second="Yoonsung Choi" />
+      <NameBox
+        first="아름지기 아트디렉터"
+        second="Art Director at Arumjigi Foundation"
+      />
+      <NameBox first="매스 앤 매터스." second="Mass and Matters." />
+      <Wrapper>
+        <p>
+          <b>MASS</b>
+          <br />
+          1. (정확한 형체가 없는) 덩어리
+          <br />
+          2. (양이) 많은 ~ <br />
+          3. (흔이 제멋대로 모여 있는 많은 사람·사물의) 무리
+        </p>
+      </Wrapper>
+      <Wrapper>
+        <p>
+          <b>MATTERS</b>
+          <br />
+          1. (고려하거나 처리해야 할) 문제
+          <br />
+          2. 상황, 사태, 사정
+          <br />
+          3. (걱정·고민 등의 원인이 되는)문제
+        </p>
+      </Wrapper>
       <p>
         모든 디자인에 있어서 컨셉이 중요하듯, 공간에 있어서 가장 먼저 고려되어야
         할 부분은 컨셉과 동시에 그 공간을 차지하고 있는 또는 차지하게 될

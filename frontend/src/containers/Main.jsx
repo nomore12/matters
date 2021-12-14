@@ -112,7 +112,7 @@ function Main() {
           <Block glow={1} paddingTop="40px">
             <MenuTitle />
           </Block>
-          <Block paddingTop="40px">
+          <Block paddingTop="40px" height="calc(100vh - 136px);">
             <Switch>
               <Route path="/main/about" component={About} />
               <Route path="/main/project" component={Content} />

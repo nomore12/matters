@@ -11,8 +11,9 @@ const Container = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
+  align-content: flex-start;
   gap: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
   /* padding: 20px 0; */
 `;
 

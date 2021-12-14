@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Switch, Route, Link } from 'react-router-dom';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
 import { Navigation, Content, Menu, MenuTitle } from 'components';
-import { About, Contact, Matters, Project } from 'pages/index';
+import { About, Contact, Matters, Detail } from 'pages/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 import { useHistory } from 'react-router-dom';
@@ -115,7 +115,8 @@ function Main() {
           <Block paddingTop="40px" height="calc(100vh - 136px);">
             <Switch>
               <Route path="/main/about" component={About} />
-              <Route path="/main/project" component={Content} />
+              <Route exact path="/main/project" component={Content} />
+              <Route path="/main/project/:id" component={Detail} />
               <Route path="/main/contact" component={Contact} />
               <Route path="/main/matters" component={Matters} />
             </Switch>

@@ -6,14 +6,17 @@ import { navSlice } from 'feature/navSlice';
 import { Detail } from 'pages';
 
 const Container = styled.div`
-  max-width: 640px;
+  //max-width: 640px;
   width: 100%;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 186px);
+  //max-height: 100%;
+  grid-gap: 1em;
   justify-content: flex-end;
-  align-content: flex-start;
-  gap: 10px;
-  overflow-y: auto;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+  }
 `;
 
 const ImageItem = styled.img`
@@ -21,9 +24,14 @@ const ImageItem = styled.img`
   width: 164px;
   height: 164px;
   object-fit: contain;
+
   &:hover {
     cursor: pointer;
   }
+`;
+
+const ImgWrapper = styled.div`
+  //display: flex;
 `;
 
 const Content = () => {
@@ -45,7 +53,9 @@ const Content = () => {
         .map((item, index) => {
           return (
             <Link key={index} to={`/main/project/${index + 1}`}>
-              <ImageItem src={item.img} alt={item.title} />
+              <ImgWrapper>
+                <ImageItem src={item.img} alt={item.title} />
+              </ImgWrapper>
             </Link>
           );
         })}

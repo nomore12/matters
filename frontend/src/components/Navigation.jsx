@@ -12,7 +12,18 @@ const NaveWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  display: ${(props) => props.display};
+
+  & * {
+    text-decoration: none;
+
+    &:visited {
+      color: black;
+    }
+
+    &:focus {
+      font-weight: 600;
+    }
+  }
 `;
 
 function Navigation() {

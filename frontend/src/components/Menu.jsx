@@ -4,11 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 
 const Container = styled.aside`
-  width: 256px;
+  width: 100%;
 `;
 
 const MenuList = styled.ul`
   padding: 0;
+
   & > li {
     margin-bottom: 1rem;
   }

@@ -18,6 +18,12 @@ const Container = styled.div`
   & p {
     line-height: 1.6em;
   }
+
+  @media only screen and (max-width: 425px) {
+    /* width: calc(100% - 160px); */
+    padding: 0px;
+    font-size: 0.7rem;
+  }
 `;
 
 const NameComp = styled.div`

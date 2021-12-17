@@ -15,6 +15,10 @@ const Container = styled.div`
   flex-direction: column;
   padding: 40px 120px;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 425px) {
+    padding: 3em 3em;
+  }
 `;
 
 const Row = styled.div`
@@ -23,27 +27,40 @@ const Row = styled.div`
   max-height: ${(props) => props.maxHeight};
   flex-grow: ${(props) => props.grow};
   justify-content: space-between;
+
+  @media only screen and (max-width: 425px) {
+    min-height: ${(props) => props.mobileHeight};
+    margin-bottom: 4em;
+  }
 `;
 
 const Block = styled.div`
-  width: ${(props) => props.width};
   height: ${(props) => props.height};
   padding-top: ${(props) => props.paddingTop};
   flex-grow: ${(props) => (props.glow ? props.glow : '0')};
   display: flex;
   justify-content: flex-end;
+
+  @media only screen and (max-width: 425px) {
+    display: ${(props) => (props.hide ? 'none' : 'flex')};
+    width: ${(props) => props.width};
+  }
 `;
 
 const LogoWrapper = styled.div`
   display: flex;
   width: 256px;
+
+  /* @media only screen and (max-width: 425px) {
+    margin-bottom: 7em;
+  } */
 `;
 
 const LogoComp = styled(Logo)`
   height: ${(props) => props.height};
-  width: 123px;
+  /* width: 123px; */
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 425px) {
     height: 72px;
   }
 `;
@@ -74,7 +91,6 @@ function Main() {
   const history = useHistory();
 
   useEffect(() => {
-    console.log(state);
     return history.listen((location) => {
       console.log(location);
       if (history.action === 'POP') {
@@ -86,7 +102,7 @@ function Main() {
   return (
     <>
       <Container ref={contRef}>
-        <Row margin="1rem 0 0 0" height="136px">
+        <Row margin="1rem 0 0 0" height="136px" mobileHeight="48px">
           <Block>
             <LogoWrapper>
               <Link
@@ -97,8 +113,8 @@ function Main() {
             </LogoWrapper>
           </Block>
           {/* 240 + 256 + 640 */}
-          <Block glow={1}></Block>
-          <Block>
+          <Block glow={1} hide></Block>
+          <Block hide>
             <Navigation />
           </Block>
         </Row>
@@ -106,13 +122,13 @@ function Main() {
           maxHeight={`${
             document.documentElement.offsetHeight - HEADER_HEIGHT - 40
           }px`}>
-          <Block paddingTop="40px">
+          <Block paddingTop="40px" hide>
             <Route exact path="/main/project" component={Menu} />
           </Block>
-          <Block glow={1} paddingTop="40px">
+          <Block glow={1} paddingTop="40px" hide>
             <MenuTitle />
           </Block>
-          <Block paddingTop="40px" height="calc(100vh - 136px);">
+          <Block paddingTop="40px" height="calc(100vh - 136px);" width="100%">
             <Switch>
               <Route path="/main/about" component={About} />
               <Route exact path="/main/project" component={Content} />

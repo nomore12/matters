@@ -11,6 +11,12 @@ const Container = styled.div`
   gap: 10px;
   padding-left: 80px;
   line-height: 1.6em;
+
+  @media only screen and (max-width: 425px) {
+    width: 100%;
+    padding: 0px;
+    font-size: 0.7rem;
+  }
 `;
 
 function Matters() {

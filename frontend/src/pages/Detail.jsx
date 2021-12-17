@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 
 const Container = styled.div`
-  width: 640px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -17,11 +16,16 @@ const Container = styled.div`
   & h4 {
     margin: 0px;
   }
+
+  @media only screen and (max-width: 768px) {
+    padding: 0;
+    align-items: flex-start;
+  }
 `;
 
 const ImageContainer = styled.img`
   box-sizing: border-box;
-  width: 640px;
+  width: 100%;
   object-fit: contain;
 `;
 

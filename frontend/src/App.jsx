@@ -10,7 +10,7 @@ import Router from 'routes/Router';
 import { Main } from 'containers';
 
 const AppContainer = styled.div`
-  height: 100%;
+  //height: 100vh;
 `;
 
 // const provider =

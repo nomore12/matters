@@ -6,7 +6,6 @@ const Container = styled.aside`
   width: 256px;
   display: flex;
   flex-direction: row-reverse;
-  border: 1px solid black;
 
   & h3 {
     margin: 0px;

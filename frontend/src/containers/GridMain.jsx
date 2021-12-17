@@ -6,7 +6,7 @@ import { Navigation, Content, Menu, MenuTitle } from 'components';
 import { About, Contact, Matters, Detail } from 'pages/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const Container = styled.div`
   height: 100vh;
@@ -78,11 +78,25 @@ function getActions(curr) {
 }
 
 const GridMain = () => {
-  const [isProject, setProject] = useState(false);
+  const [currentNav, setCurrentNav] = useState('');
+  const [navVisible, setNavVisible] = useState(false);
   const { state } = useSelector((state) => state.nav.navState);
   const contRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
+  const params = useLocation();
+
+  useEffect(() => {
+    console.log('params', params.pathname);
+    const sss = params.pathname.split('/');
+    console.log(sss);
+    setCurrentNav(sss[2]);
+    if (sss.length === 2) {
+      setNavVisible(false);
+    } else {
+      setNavVisible(true);
+    }
+  });
 
   useEffect(() => {
     return history.listen((location) => {
@@ -92,6 +106,12 @@ const GridMain = () => {
       }
     });
   }, [history]);
+
+  // useEffect(() => {
+  //   console.log('current ', history.pathname);
+  //   setCurrentNav(history.pathname);
+  // }, [history.pathname]);
+
   return (
     <Container>
       <GridBlock>
@@ -100,16 +120,13 @@ const GridMain = () => {
         </LogoWrapper>
       </GridBlock>
       <GridBlock hide={true}></GridBlock>
-      <GridBlock hide={true}>
-        <NavWrapper>
-          <Navigation />
-        </NavWrapper>
-      </GridBlock>
+      <GridBlock hide={true}>{!navVisible && <Navigation />}</GridBlock>
       <GridBlock hide={true}>
         <Route exact path="/main/project" component={Menu} />
       </GridBlock>
       <GridBlock hide>
-        <MenuTitle></MenuTitle>
+        <MenuTitle
+          title={currentNav === undefined ? '' : currentNav}></MenuTitle>
       </GridBlock>
       <GridBlock>
         <Switch>

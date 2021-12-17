@@ -12,7 +12,7 @@ const Container = styled.aside`
   }
 `;
 
-const MenuTitle = () => {
+const MenuTitle = (props) => {
   const state = useSelector((store) => store.nav.navState);
 
   useEffect(() => {
@@ -21,7 +21,8 @@ const MenuTitle = () => {
 
   return (
     <Container>
-      <h3>{state === '' ? null : state}</h3>
+      {/*<h3>{state === '' ? null : state}</h3>*/}
+      <h3>{props.title}</h3>
     </Container>
   );
 };

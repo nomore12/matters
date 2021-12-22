@@ -69,7 +69,7 @@ export default Content;
 
 const itemData = [
   {
-    img: '/images/example/1.jpeg',
+    img: '../assets/1.jpeg',
     title: 'Breakfast',
     type: 'first',
   },

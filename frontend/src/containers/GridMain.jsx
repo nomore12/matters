@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Switch, Route, Link } from 'react-router-dom';
 import { ReactComponent as Logo } from 'static/images/logo.svg';
-import { Navigation, Content, Menu, MenuTitle } from 'components';
+import { Navigation, Content, Menu, MenuTitle, MobileNav } from 'components';
 import { About, Contact, Matters, Detail } from 'pages/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 import { useHistory, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Container = styled.div`
   height: 100vh;
@@ -19,7 +21,7 @@ const Container = styled.div`
 
   @media only screen and (max-width: 768px) {
     padding: 0 1em;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 64px;
     grid-template-rows: 148px 1fr;
   }
 `;
@@ -60,6 +62,37 @@ const GridBlock = styled.div`
   }
 `;
 
+const SecondNav = styled.div`
+  width: 64px;
+  height: 64px;
+  border: 1px solid black;
+  display: none;
+
+  @media only screen and (max-width: 768px) {
+    display: flex;
+    align-self: center;
+  }
+`;
+
+const BarWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3rem;
+  z-index: 10;
+`;
+
+const NaveLayer = styled.div`
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 0;
+  top: 0;
+`;
+
 const HEADER_HEIGHT = 136;
 
 function getActions(curr) {
@@ -80,6 +113,9 @@ function getActions(curr) {
 const GridMain = () => {
   const [currentNav, setCurrentNav] = useState('');
   const [navVisible, setNavVisible] = useState(false);
+  const [barVisible, setBarVisible] = useState(true);
+  const [isClose, setClose] = useState(false);
+  const [isMain, setMain] = useState(true);
   const { state } = useSelector((state) => state.nav.navState);
   const contRef = useRef(null);
   const dispatch = useDispatch();
@@ -87,14 +123,13 @@ const GridMain = () => {
   const params = useLocation();
 
   useEffect(() => {
-    console.log('params', params.pathname);
-    const sss = params.pathname.split('/');
-    console.log(sss);
-    setCurrentNav(sss[2]);
-    if (sss.length === 2) {
+    const pathnameArr = params.pathname.split('/');
+    setCurrentNav(pathnameArr[2]);
+    if (pathnameArr.length === 2) {
       setNavVisible(false);
     } else {
       setNavVisible(true);
+      setClose(false);
     }
   });
 
@@ -106,6 +141,8 @@ const GridMain = () => {
       }
     });
   }, [history]);
+
+  const onClose = () => setClose(false);
 
   // useEffect(() => {
   //   console.log('current ', history.pathname);
@@ -121,6 +158,21 @@ const GridMain = () => {
       </GridBlock>
       <GridBlock hide={true}></GridBlock>
       <GridBlock hide={true}>{!navVisible && <Navigation />}</GridBlock>
+      {/* {!navVisible && ( */}
+      <SecondNav>
+        {isClose && (
+          <NaveLayer>
+            <MobileNav></MobileNav>
+          </NaveLayer>
+        )}
+        <BarWrapper>
+          <FontAwesomeIcon
+            icon={!isClose ? faBars : faTimes}
+            onClick={() => setClose(!isClose)}
+          />
+        </BarWrapper>
+      </SecondNav>
+      {/* )} */}
       <GridBlock hide={true}>
         <Route exact path="/main/project" component={Menu} />
       </GridBlock>

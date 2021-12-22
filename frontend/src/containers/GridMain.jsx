@@ -51,6 +51,7 @@ const GridBlock = styled.div`
 
   @media only screen and (max-width: 768px) {
     display: ${(props) => (props.hide ? 'none' : 'grid')};
+    grid-column: ${(props) => (props.content ? '1 / 3' : '')};
     justify-items: flex-start;
   }
 `;
@@ -177,7 +178,7 @@ const GridMain = () => {
         <MenuTitle
           title={currentNav === undefined ? '' : currentNav}></MenuTitle>
       </GridBlock>
-      <GridBlock>
+      <GridBlock content>
         <Switch>
           <Route path="/main/about" component={About} />
           <Route exact path="/main/project" component={Content} />

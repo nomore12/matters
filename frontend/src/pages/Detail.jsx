@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { ImageList, ImageListItem } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
-const Container = styled.div`
+const Container = styled(PerfectScrollbar)`
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -4,8 +4,10 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 import { Detail } from 'pages';
+import 'react-perfect-scrollbar/dist/css/styles.css';
+import PerfectScrollbar from 'react-perfect-scrollbar';
 
-const Container = styled.div`
+const Container = styled(PerfectScrollbar)`
   //max-width: 640px;
   width: 100%;
   display: grid;

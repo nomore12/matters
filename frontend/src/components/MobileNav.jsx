@@ -56,21 +56,38 @@ function MobileNav(props) {
   return (
     <>
       <NaveWrapper display={state === '' ? 'flex' : 'none'}>
-        <Link onClick={dispatch(about())} to="/main/about">
+        <Link
+          onClick={() => {
+            props.onClose();
+            dispatch(about());
+          }}
+          to="/main/about">
           ABOUT
         </Link>
-        <Link onClick={() => dispatch(project())} to="/main/project">
+        <Link
+          onClick={() => {
+            props.onClose();
+            dispatch(project());
+          }}
+          to="/main/project">
           PROJ`ECT
         </Link>
-        <Link onClick={() => dispatch(contact())} to="/main/contact">
+        <Link
+          onClick={() => {
+            props.onClose();
+            dispatch(contact());
+          }}
+          to="/main/contact">
           CONTACT
         </Link>
-        <Link onClick={() => dispatch(matters())} to="/main/matters">
+        <Link
+          onClick={() => {
+            props.onClose();
+            dispatch(matters());
+          }}
+          to="/main/matters">
           MATTERS
         </Link>
-        {/* <ClossWrapper>
-          <CloseBtn icon={faTimes} onClick={() => props.onClose()} />
-        </ClossWrapper> */}
       </NaveWrapper>
     </>
   );

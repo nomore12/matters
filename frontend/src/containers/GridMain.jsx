@@ -42,13 +42,6 @@ const LogoComp = styled(Logo)`
   display: flex;
 `;
 
-const NavWrapper = styled.div`
-  display: flex;
-  height: 100%;
-  justify-content: flex-end;
-  align-items: flex-end;
-`;
-
 const GridBlock = styled.div`
   display: grid;
   justify-items: flex-end;
@@ -65,7 +58,6 @@ const GridBlock = styled.div`
 const SecondNav = styled.div`
   width: 64px;
   height: 64px;
-  border: 1px solid black;
   display: none;
 
   @media only screen and (max-width: 768px) {
@@ -113,7 +105,7 @@ function getActions(curr) {
 const GridMain = () => {
   const [currentNav, setCurrentNav] = useState('');
   const [navVisible, setNavVisible] = useState(false);
-  const [barVisible, setBarVisible] = useState(true);
+  const [panelOn, setPanel] = useState(false);
   const [isClose, setClose] = useState(false);
   const [isMain, setMain] = useState(true);
   const { state } = useSelector((state) => state.nav.navState);
@@ -129,7 +121,6 @@ const GridMain = () => {
       setNavVisible(false);
     } else {
       setNavVisible(true);
-      setClose(false);
     }
   });
 
@@ -142,7 +133,10 @@ const GridMain = () => {
     });
   }, [history]);
 
-  const onClose = () => setClose(false);
+  const onClose = () => {
+    setClose(!isClose);
+    setPanel(!panelOn);
+  };
 
   // useEffect(() => {
   //   console.log('current ', history.pathname);
@@ -160,15 +154,18 @@ const GridMain = () => {
       <GridBlock hide={true}>{!navVisible && <Navigation />}</GridBlock>
       {/* {!navVisible && ( */}
       <SecondNav>
-        {isClose && (
+        {panelOn && (
           <NaveLayer>
-            <MobileNav></MobileNav>
+            <MobileNav onClose={onClose}></MobileNav>
           </NaveLayer>
         )}
         <BarWrapper>
           <FontAwesomeIcon
             icon={!isClose ? faBars : faTimes}
-            onClick={() => setClose(!isClose)}
+            onClick={() => {
+              setClose(!isClose);
+              setPanel(!panelOn);
+            }}
           />
         </BarWrapper>
       </SecondNav>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { About, Project, Contact, Matters } from 'pages';
 import { navSlice } from 'feature/navSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,17 @@ const NaveWrapper = styled.div`
   }
 `;
 
+const blinker = keyframes`
+  0% {
+    opacity: 0;
+    font: bold;
+  }
+`;
+
+const BlinkText = styled.span`
+  animation: ${blinker} 3s linear;
+`;
+
 function Navigation() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.nav.navState);
@@ -38,10 +49,10 @@ function Navigation() {
     <>
       <NaveWrapper display={state === '' ? 'flex' : 'none'}>
         <Link onClick={() => dispatch(about())} to="/main/about">
-          ABOUT
+          <BlinkText>ABOUT</BlinkText>
         </Link>
         <Link onClick={() => dispatch(project())} to="/main/project">
-          PROJ`ECT
+          PROJECT
         </Link>
         <Link onClick={() => dispatch(contact())} to="/main/contact">
           CONTACT

@@ -26,15 +26,28 @@ const NaveWrapper = styled.div`
   }
 `;
 
-const blinker = keyframes`
-  0% {
+const blinker = ({ start, mid, end }) => keyframes`
+  ${start} {
     opacity: 0;
-    font: bold;
+    /* font: bold; */
+  }
+  ${mid}{
+    opacity: 0;
+  }
+  ${end}{
+    opacity: 1;
+  }
+`;
+
+const LinkWapper = styled(Link)`
+  &:visited {
+    color: '#fff';
   }
 `;
 
 const BlinkText = styled.span`
-  animation: ${blinker} 3s linear;
+  animation: ${blinker} 5s linear;
+  font-weight: 600;
 `;
 
 function Navigation() {
@@ -48,18 +61,29 @@ function Navigation() {
   return (
     <>
       <NaveWrapper display={state === '' ? 'flex' : 'none'}>
-        <Link onClick={() => dispatch(about())} to="/main/about">
-          <BlinkText>ABOUT</BlinkText>
-        </Link>
-        <Link onClick={() => dispatch(project())} to="/main/project">
-          PROJECT
-        </Link>
-        <Link onClick={() => dispatch(contact())} to="/main/contact">
-          CONTACT
-        </Link>
-        <Link onClick={() => dispatch(matters())} to="/main/matters">
-          MATTERS
-        </Link>
+        <LinkWapper
+          // style={{ 'a:visited': 'black', fontStyle: 'bold' }}
+          onClick={() => dispatch(about())}
+          to="/main/about">
+          <BlinkText start="0%" mid="0%" end="25%">
+            ABOUT
+          </BlinkText>
+        </LinkWapper>
+        <LinkWapper onClick={() => dispatch(project())} to="/main/project">
+          <BlinkText start="0%" mid="15%" end="50%">
+            PROJECT
+          </BlinkText>
+        </LinkWapper>
+        <LinkWapper onClick={() => dispatch(contact())} to="/main/contact">
+          <BlinkText start="0%" mid="35%" end="75%">
+            CONTACT
+          </BlinkText>
+        </LinkWapper>
+        <LinkWapper onClick={() => dispatch(matters())} to="/main/matters">
+          <BlinkText start="0%" mid="50%" end="100%">
+            MATTERS
+          </BlinkText>
+        </LinkWapper>
       </NaveWrapper>
     </>
   );

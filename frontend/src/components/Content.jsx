@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -45,6 +45,10 @@ const Content = () => {
     return `/images/example/${index + 1}.jpeg`;
   };
 
+  useEffect(() => {
+    console.log('content page');
+  }, []);
+
   return (
     <Container>
       {itemData
@@ -69,7 +73,7 @@ export default Content;
 
 const itemData = [
   {
-    img: '../assets/1.jpeg',
+    img: 'https://picsum.photos/seed/picsum/200/200',
     title: 'Breakfast',
     type: 'first',
   },

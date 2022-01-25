@@ -108,9 +108,7 @@ const GridMain = () => {
   const [navVisible, setNavVisible] = useState(false);
   const [panelOn, setPanel] = useState(false);
   const [isClose, setClose] = useState(false);
-  const [isMain, setMain] = useState(true);
   const { state } = useSelector((state) => state.nav.navState);
-  const contRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useLocation();
@@ -123,7 +121,7 @@ const GridMain = () => {
     } else {
       setNavVisible(true);
     }
-  });
+  }, [params.pathname]);
 
   useEffect(() => {
     return history.listen((location) => {
@@ -139,11 +137,6 @@ const GridMain = () => {
     setPanel(!panelOn);
   };
 
-  // useEffect(() => {
-  //   console.log('current ', history.pathname);
-  //   setCurrentNav(history.pathname);
-  // }, [history.pathname]);
-
   return (
     <Container>
       <GridBlock>
@@ -153,7 +146,6 @@ const GridMain = () => {
       </GridBlock>
       <GridBlock hide={true}></GridBlock>
       <GridBlock hide={true}>{!navVisible && <Navigation />}</GridBlock>
-      {/* {!navVisible && ( */}
       <SecondNav>
         {panelOn && (
           <NaveLayer>
@@ -170,7 +162,6 @@ const GridMain = () => {
           />
         </BarWrapper>
       </SecondNav>
-      {/* )} */}
       <GridBlock hide={true}>
         <Route exact path="/main/project" component={Menu} />
       </GridBlock>

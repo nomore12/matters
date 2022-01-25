@@ -65,17 +65,17 @@ function Navigation() {
           // style={{ 'a:visited': 'black', fontStyle: 'bold' }}
           onClick={() => dispatch(about())}
           to="/main/about">
-          <BlinkText start="0%" mid="0%" end="25%">
+          <BlinkText start="0%" mid="0%" end="70%">
             ABOUT
           </BlinkText>
         </LinkWapper>
         <LinkWapper onClick={() => dispatch(project())} to="/main/project">
-          <BlinkText start="0%" mid="15%" end="50%">
+          <BlinkText start="0%" mid="15%" end="80%">
             PROJECT
           </BlinkText>
         </LinkWapper>
         <LinkWapper onClick={() => dispatch(contact())} to="/main/contact">
-          <BlinkText start="0%" mid="35%" end="75%">
+          <BlinkText start="0%" mid="35%" end="90%">
             CONTACT
           </BlinkText>
         </LinkWapper>

@@ -8,12 +8,11 @@ import { auth } from 'firebaseConfig';
 import { LoginPage } from 'pages/index';
 import Router from 'routes/Router';
 import { Main } from 'containers';
+import axios from 'axios';
 
 const AppContainer = styled.div`
   //height: 100vh;
 `;
-
-// const provider =
 
 function App() {
   return (

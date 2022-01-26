@@ -33,13 +33,15 @@ const ImageContainer = styled.img`
 
 const Detail = (props) => {
   useEffect(() => {
-    console.log(props.match.params.id);
+    console.log('detail', props.match.params.id, props);
   }, []);
 
   return (
     <Container>
-      <ImageContainer src={`/images/example/${props.match.params.id}.jpeg`} />
-      <h1>project name</h1>
+      <ImageContainer
+        src={`http://127.0.0.1:8000/media/main/852-768x860.jpg`}
+      />
+      {/* <h1>{props.title}</h1> */}
       <p>Laboris consequat amet excepteur et ad in eiusmod dolor minim ad.</p>
     </Container>
   );

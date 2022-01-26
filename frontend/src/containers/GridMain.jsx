@@ -9,6 +9,7 @@ import { navSlice } from 'feature/navSlice';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const Container = styled.div`
   height: 100vh;
@@ -112,6 +113,26 @@ const GridMain = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useLocation();
+  const [imageData, setImageData] = useState([]);
+
+  useEffect(() => {
+    // axios.defaults.baseURL = 'http://127.0.0.1:8000/posts';
+
+    axios
+      .get('http://127.0.0.1:8000/posts/')
+      .then(function (response) {
+        // 성공 핸들링
+        console.log('response', response);
+        setImageData(response.data);
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log('erros', error);
+      })
+      .then(function () {
+        // 항상 실행되는 영역
+      });
+  }, []);
 
   useEffect(() => {
     const pathnameArr = params.pathname.split('/');
@@ -136,6 +157,12 @@ const GridMain = () => {
     setClose(!isClose);
     setPanel(!panelOn);
   };
+
+  // const imageLists = imageData ? imageData.map((data) => {
+  //   return (
+
+  //   )
+  // })
 
   return (
     <Container>
@@ -172,9 +199,16 @@ const GridMain = () => {
       <GridBlock content>
         <Switch>
           <Route path="/main/about" component={About} />
-          <Route exact path="/main/project" component={Content} />
+          <Route
+            exact
+            path="/main/project"
+            component={() => <Content imgData={imageData} />}
+          />
           <Route path="/main/project/:id" component={Detail} />
-          <Route path="/main/contact" component={Contact} />
+          <Route
+            path="/main/contact"
+            component={() => <Contact imageData={imageData} />}
+          />
           <Route path="/main/matters" component={Matters} />
         </Switch>
       </GridBlock>

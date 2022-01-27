@@ -118,20 +118,23 @@ const GridMain = () => {
   useEffect(() => {
     // axios.defaults.baseURL = 'http://127.0.0.1:8000/posts';
 
-    axios
-      .get('http://127.0.0.1:8000/posts/')
-      .then(function (response) {
-        // 성공 핸들링
-        console.log('response', response);
-        setImageData(response.data);
-      })
-      .catch(function (error) {
-        // 에러 핸들링
-        console.log('erros', error);
-      })
-      .then(function () {
-        // 항상 실행되는 영역
-      });
+    async function getImage() {
+      await axios
+        .get('http://127.0.0.1:8000/posts/')
+        .then(function (response) {
+          // 성공 핸들링
+          console.log('response', response);
+          setImageData(response.data);
+        })
+        .catch(function (error) {
+          // 에러 핸들링
+          console.log('erros', error);
+        })
+        .then(function () {
+          // 항상 실행되는 영역
+        });
+    }
+    getImage();
   }, []);
 
   useEffect(() => {
@@ -205,10 +208,7 @@ const GridMain = () => {
             component={() => <Content imgData={imageData} />}
           />
           <Route path="/main/project/:id" component={Detail} />
-          <Route
-            path="/main/contact"
-            component={() => <Contact imageData={imageData} />}
-          />
+          <Route path="/main/contact" component={<Contact />} />
           <Route path="/main/matters" component={Matters} />
         </Switch>
       </GridBlock>

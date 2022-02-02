@@ -67,12 +67,15 @@ const Content = ({ imgData }) => {
             item
         )
         .map((item, index) => {
+          console.log(item);
           return (
             <Link
               key={index}
               to={{
                 pathname: `/main/project/${item.pk}`,
+                pk: item.pk,
                 state: {
+                  pk: item.pk,
                   data: item,
                 },
               }}>

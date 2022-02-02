@@ -6,7 +6,7 @@ import { navSlice } from 'feature/navSlice';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams, useRouteMatch, useLocation } from 'react-router-dom';
 
 const Container = styled(PerfectScrollbar)`
   height: 100%;
@@ -34,66 +34,46 @@ const ImageContainer = styled.img`
 `;
 
 const Detail = (props) => {
-  const [imgData, setImgData] = useState();
   const params = useParams();
+  const [imgSrc, setImgSrc] = useState();
+  const location = useLocation();
+  const [desc, setDesc] = useState();
 
   useEffect(() => {
-    console.log('detail', props.match.params.id, params);
+    console.log('detail', props, params);
+    // const src = location.pathname;
+    // setImgSrc(src.substring(13, src.length));
 
-    (async function () {
+    (async function getImage() {
       await axios
-        .get(`http://127.0.0.1:8000/posts/${params.id}/`)
+        .get(`http://127.0.0.1:8000/posts/${params.id}`)
         .then(function (response) {
           // 성공 핸들링
-          const data = response.data;
-          setImgData(data[0]);
-          console.log('data', response);
+          console.log('detail response', response);
+          setImgSrc(response.data[0].fields.main_image);
+          setDesc(response.data[0].fields.description);
+          // setDesc(response.data[0].fields.description);
+          // setImageData(response.data);
         })
         .catch(function (error) {
           // 에러 핸들링
-          console.log('erros', error);
+          console.log('detail response error', error);
         })
         .then(function () {
           // 항상 실행되는 영역
         });
     })();
-
-    // getImage(params.id);
-
-    console.log('fetch', props.match.params.id, imgData);
+    // getImage();
   }, []);
 
-  console.log(props, params, imgData);
+  // async function getPostDetail() {
 
-  useEffect(() => {
-    console.log('imgData', imgData);
-  }, [imgData]);
-
-  const getImage = async (id) => {
-    await axios
-      .get(`http://127.0.0.1:8000/posts/${id}/`)
-      .then(function (response) {
-        // 성공 핸들링
-        const data = response.data;
-        setImgData(data);
-        console.log('data', data[0]);
-      })
-      .catch(function (error) {
-        // 에러 핸들링
-        console.log('erros', error);
-      })
-      .then(function () {
-        // 항상 실행되는 영역
-      });
-  };
+  // }
 
   return (
     <Container>
-      <ImageContainer
-        src={`http://127.0.0.1:8000/media/${props.location.state.data.fields.main_image}`}
-      />
-      {/* <h1>{imgData}</h1> */}
-      <p>Laboris consequat amet excepteur et ad in eiusmod dolor minim ad.</p>
+      <ImageContainer src={`http://127.0.0.1:8000/media/${imgSrc}`} />
+      <p>{desc}</p>
     </Container>
   );
 };

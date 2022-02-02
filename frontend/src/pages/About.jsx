@@ -61,7 +61,7 @@ function About() {
       <NameBox first="매스 앤 매터스." second="Mass and Matters." />
       <Wrapper>
         <p>
-          <b>MASS</b>
+          <b className="underline">MASS</b>
           <br />
           1. (정확한 형체가 없는) 덩어리
           <br />

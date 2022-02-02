@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { About, Project, Contact, Matters } from 'pages';
 import { navSlice } from 'feature/navSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,30 @@ const NaveWrapper = styled.div`
   }
 `;
 
+const blinker = ({ start, mid, end }) => keyframes`
+  ${start} {
+    opacity: 0;
+    /* font: bold; */
+  }
+  ${mid}{
+    opacity: 0;
+  }
+  ${end}{
+    opacity: 1;
+  }
+`;
+
+const LinkWapper = styled(Link)`
+  &:visited {
+    color: '#fff';
+  }
+`;
+
+const BlinkText = styled.span`
+  animation: ${blinker} 5s linear;
+  font-weight: 600;
+`;
+
 function Navigation() {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.nav.navState);
@@ -37,18 +61,29 @@ function Navigation() {
   return (
     <>
       <NaveWrapper display={state === '' ? 'flex' : 'none'}>
-        <Link onClick={() => dispatch(about())} to="/main/about">
-          ABOUT
-        </Link>
-        <Link onClick={() => dispatch(project())} to="/main/project">
-          PROJ`ECT
-        </Link>
-        <Link onClick={() => dispatch(contact())} to="/main/contact">
-          CONTACT
-        </Link>
-        <Link onClick={() => dispatch(matters())} to="/main/matters">
-          MATTERS
-        </Link>
+        <LinkWapper
+          // style={{ 'a:visited': 'black', fontStyle: 'bold' }}
+          onClick={() => dispatch(about())}
+          to="/main/about">
+          <BlinkText start="0%" mid="0%" end="70%">
+            ABOUT
+          </BlinkText>
+        </LinkWapper>
+        <LinkWapper onClick={() => dispatch(project())} to="/main/project">
+          <BlinkText start="0%" mid="15%" end="80%">
+            PROJECT
+          </BlinkText>
+        </LinkWapper>
+        <LinkWapper onClick={() => dispatch(contact())} to="/main/contact">
+          <BlinkText start="0%" mid="35%" end="90%">
+            CONTACT
+          </BlinkText>
+        </LinkWapper>
+        <LinkWapper onClick={() => dispatch(matters())} to="/main/matters">
+          <BlinkText start="0%" mid="50%" end="100%">
+            MATTERS
+          </BlinkText>
+        </LinkWapper>
       </NaveWrapper>
     </>
   );

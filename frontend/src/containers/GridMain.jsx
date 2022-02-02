@@ -9,6 +9,7 @@ import { navSlice } from 'feature/navSlice';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 const Container = styled.div`
   height: 100vh;
@@ -108,12 +109,33 @@ const GridMain = () => {
   const [navVisible, setNavVisible] = useState(false);
   const [panelOn, setPanel] = useState(false);
   const [isClose, setClose] = useState(false);
-  const [isMain, setMain] = useState(true);
   const { state } = useSelector((state) => state.nav.navState);
-  const contRef = useRef(null);
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useLocation();
+  const [imageData, setImageData] = useState([]);
+
+  useEffect(() => {
+    // axios.defaults.baseURL = 'http://127.0.0.1:8000/posts';
+
+    async function getImage() {
+      await axios
+        .get('http://127.0.0.1:8000/posts/')
+        .then(function (response) {
+          // 성공 핸들링
+          console.log('response', response);
+          setImageData(response.data);
+        })
+        .catch(function (error) {
+          // 에러 핸들링
+          console.log('erros', error);
+        })
+        .then(function () {
+          // 항상 실행되는 영역
+        });
+    }
+    getImage();
+  }, []);
 
   useEffect(() => {
     const pathnameArr = params.pathname.split('/');
@@ -123,7 +145,7 @@ const GridMain = () => {
     } else {
       setNavVisible(true);
     }
-  });
+  }, [params.pathname]);
 
   useEffect(() => {
     return history.listen((location) => {
@@ -139,10 +161,11 @@ const GridMain = () => {
     setPanel(!panelOn);
   };
 
-  // useEffect(() => {
-  //   console.log('current ', history.pathname);
-  //   setCurrentNav(history.pathname);
-  // }, [history.pathname]);
+  // const imageLists = imageData ? imageData.map((data) => {
+  //   return (
+
+  //   )
+  // })
 
   return (
     <Container>
@@ -153,7 +176,6 @@ const GridMain = () => {
       </GridBlock>
       <GridBlock hide={true}></GridBlock>
       <GridBlock hide={true}>{!navVisible && <Navigation />}</GridBlock>
-      {/* {!navVisible && ( */}
       <SecondNav>
         {panelOn && (
           <NaveLayer>
@@ -170,7 +192,6 @@ const GridMain = () => {
           />
         </BarWrapper>
       </SecondNav>
-      {/* )} */}
       <GridBlock hide={true}>
         <Route exact path="/main/project" component={Menu} />
       </GridBlock>
@@ -181,9 +202,13 @@ const GridMain = () => {
       <GridBlock content>
         <Switch>
           <Route path="/main/about" component={About} />
-          <Route exact path="/main/project" component={Content} />
+          <Route
+            exact
+            path="/main/project"
+            component={() => <Content imgData={imageData} />}
+          />
           <Route path="/main/project/:id" component={Detail} />
-          <Route path="/main/contact" component={Contact} />
+          <Route path="/main/contact" component={<Contact />} />
           <Route path="/main/matters" component={Matters} />
         </Switch>
       </GridBlock>

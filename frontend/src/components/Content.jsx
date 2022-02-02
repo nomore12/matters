@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect } from 'react';
+import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
@@ -8,16 +8,25 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 
 const Container = styled(PerfectScrollbar)`
-  //max-width: 640px;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 186px);
-  //max-height: 100%;
-  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fill, 164px);
+  grid-template-rows: repeat(auto-fill, 164px);
+  grid-gap: 2rem;
   justify-content: flex-end;
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
+  }
+`;
+
+const GrayscaleTransition = keyframes`
+  0% {
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+  }100%{
+    -webkit-filter: none;
+    filter: none;
   }
 `;
 
@@ -26,17 +35,17 @@ const ImageItem = styled.img`
   width: 164px;
   height: 164px;
   object-fit: contain;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
 
   &:hover {
     cursor: pointer;
+    animation: ${GrayscaleTransition} 1.5s linear;
+    animation-fill-mode: forwards;
   }
 `;
 
-const ImgWrapper = styled.div`
-  //display: flex;
-`;
-
-const Content = () => {
+const Content = ({ imgData }) => {
   const state = useSelector((store) => store.nav);
   const dispatch = useDispatch();
 
@@ -45,19 +54,35 @@ const Content = () => {
     return `/images/example/${index + 1}.jpeg`;
   };
 
+  useEffect(() => {
+    console.log('content page', imgData);
+  }, []);
+
   return (
     <Container>
-      {itemData
+      {imgData
         .filter(
           (item) =>
-            (state.category === 'all' || state.category === item.type) && item
+            (state.category === 'all' || state.category === item.post_type) &&
+            item
         )
         .map((item, index) => {
           return (
-            <Link key={index} to={`/main/project/${index + 1}`}>
-              <ImgWrapper>
-                <ImageItem src={item.img} alt={item.title} />
-              </ImgWrapper>
+            <Link
+              key={index}
+              to={{
+                pathname: `/main/project/${item.pk}`,
+                state: {
+                  data: item,
+                },
+              }}>
+              {/* <ImgWrapper> */}
+              <ImageItem
+                src={`http://127.0.0.1:8000/media/${item.fields.thumbnail}`}
+                alt={item.fields.title}
+                title={item.fields.title}
+              />
+              {/* </ImgWrapper> */}
             </Link>
           );
         })}
@@ -69,7 +94,7 @@ export default Content;
 
 const itemData = [
   {
-    img: '../assets/1.jpeg',
+    img: 'https://picsum.photos/seed/picsum/200/200',
     title: 'Breakfast',
     type: 'first',
   },

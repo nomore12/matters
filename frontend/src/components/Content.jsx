@@ -81,7 +81,7 @@ const Content = ({ imgData }) => {
               }}>
               {/* <ImgWrapper> */}
               <ImageItem
-                src={`http://127.0.0.1:8000/media/${item.fields.thumbnail}`}
+                src={`https://mattersbackend.herokuapp.com/media/${item.fields.thumbnail}`}
                 alt={item.fields.title}
                 title={item.fields.title}
               />

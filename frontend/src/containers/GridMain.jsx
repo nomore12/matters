@@ -120,7 +120,7 @@ const GridMain = () => {
 
     async function getImage() {
       await axios
-        .get('http://127.0.0.1:8000/posts/')
+        .get('https://mattersbackend.herokuapp.com/posts/')
         .then(function (response) {
           // 성공 핸들링
           console.log('response', response);

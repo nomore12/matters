@@ -46,7 +46,7 @@ const Detail = (props) => {
 
     (async function getImage() {
       await axios
-        .get(`http://127.0.0.1:8000/posts/${params.id}`)
+        .get(`https://mattersbackend.herokuapp.com/posts/${params.id}`)
         .then(function (response) {
           // 성공 핸들링
           console.log('detail response', response);
@@ -72,7 +72,9 @@ const Detail = (props) => {
 
   return (
     <Container>
-      <ImageContainer src={`http://127.0.0.1:8000/media/${imgSrc}`} />
+      <ImageContainer
+        src={`https://mattersbackend.herokuapp.com/media/${imgSrc}`}
+      />
       <p>{desc}</p>
     </Container>
   );

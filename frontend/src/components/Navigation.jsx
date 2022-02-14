@@ -46,7 +46,7 @@ const LinkWapper = styled(Link)`
 `;
 
 const BlinkText = styled.span`
-  animation: ${blinker} 5s linear;
+  animation: ${blinker} 2s linear;
   font-weight: 600;
 `;
 
@@ -61,10 +61,7 @@ function Navigation() {
   return (
     <>
       <NaveWrapper display={state === '' ? 'flex' : 'none'}>
-        <LinkWapper
-          // style={{ 'a:visited': 'black', fontStyle: 'bold' }}
-          onClick={() => dispatch(about())}
-          to="/main/about">
+        <LinkWapper onClick={() => dispatch(about())} to="/main/about">
           <BlinkText start="0%" mid="0%" end="70%">
             ABOUT
           </BlinkText>

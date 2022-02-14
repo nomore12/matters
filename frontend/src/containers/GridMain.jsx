@@ -14,7 +14,7 @@ import axios from 'axios';
 const Container = styled.div`
   height: 100vh;
   display: grid;
-  grid-template-columns: 148px 1fr 720px;
+  grid-template-columns: 148px 1fr 640px;
   grid-template-rows: 148px 1fr;
   grid-auto-rows: fit-content();
   padding: 4em;

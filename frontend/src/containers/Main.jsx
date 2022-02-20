@@ -102,13 +102,13 @@ function Main() {
   return (
     <>
       <Container ref={contRef}>
-        <Row margin="1rem 0 0 0" height="136px" mobileHeight="48px">
+        <Row margin="1rem 0 0 0" height="108px" mobileHeight="48px">
           <Block>
             <LogoWrapper>
               <Link
                 to="/main"
                 onClick={() => dispatch(navSlice.actions.landing())}>
-                <LogoComp height={`${86}px`}></LogoComp>
+                <LogoComp height={`${64}px`} width="128px"></LogoComp>
               </Link>
             </LogoWrapper>
           </Block>

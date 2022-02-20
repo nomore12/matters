@@ -12,11 +12,16 @@ const Container = styled.div`
   gap: 10px;
   padding-left: 80px;
   line-height: 1.6em;
-
+  font-size: 12px;
   @media only screen and (max-width: 768px) {
     width: 100%;
     padding: 0px;
     font-size: 0.7rem;
+  }
+
+  .info {
+    margin-top: auto;
+    margin-bottom: 4rem;
   }
 `;
 
@@ -37,8 +42,9 @@ const IT = styled.div`
 `;
 
 const MattersWrapper = styled.div`
-  margin-top: 5rem;
+  margin-top: 3rem;
   display: flex;
+  margin-bottom: 3rem;
 `;
 
 const InstaLink = styled.div`
@@ -52,6 +58,7 @@ const InstaLink = styled.div`
 const Content = styled.div`
   display: flex;
   overflow-wrap: break-word;
+  padding-right: 80px;
 `;
 
 function Matters() {
@@ -65,7 +72,7 @@ function Matters() {
 
   return (
     <Container>
-      <p>매스 앤 매터스는,</p>
+      <Introduce>매스 앤 매터스는,</Introduce>
       <Content>
         인테리어 디자인 스튜디오이며, 공간 디자인 외에도 가구 디자인, 제품 /
         오브제 디자인, 인스톨레이션, 전시 디자인 등을 통해 프로젝트를 다방면에서
@@ -74,16 +81,22 @@ function Matters() {
         외에도 브랜딩 작업과 프로젝트 매니징의 범위까지도 고려한 입체적 솔루션을
         클라이언트와 함께 고민하고 완성해 나갑니다.
       </Content>
-      <MattersWrapper>
-        <IT>IT</IT>
-        {matters && <IT>MATTERS</IT>}
-        {now && <IT>NOW.</IT>}
-      </MattersWrapper>
-      <InstaLink>
-        <Instagram width="32px" height="32px"></Instagram>
-      </InstaLink>
+      <div className="info">
+        <MattersWrapper>
+          <IT>IT</IT>
+          {matters && <IT>MATTERS</IT>}
+          {now && <IT>NOW.</IT>}
+        </MattersWrapper>
+        <InstaLink>
+          <Instagram width="32px" height="32px"></Instagram>
+        </InstaLink>
+      </div>
     </Container>
   );
 }
 
 export default Matters;
+
+const Introduce = styled.div`
+  margin: 0;
+`;

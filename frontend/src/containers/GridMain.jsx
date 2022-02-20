@@ -15,7 +15,7 @@ const Container = styled.div`
   height: 100vh;
   display: grid;
   grid-template-columns: 148px 1fr 640px;
-  grid-template-rows: 148px 1fr;
+  grid-template-rows: 76px 1fr;
   grid-auto-rows: fit-content();
   padding: 4em;
   gap: 1em;
@@ -31,6 +31,7 @@ const LogoWrapper = styled(Link)`
   display: flex;
   width: 100%;
   height: 100%;
+  align-items: flex-end;
 
   @media only screen and (max-width: 768px) {
     width: 64px;
@@ -38,8 +39,8 @@ const LogoWrapper = styled(Link)`
 `;
 
 const LogoComp = styled(Logo)`
-  width: 100%;
-  height: 100%;
+  width: 108px;
+  height: 76px;
   display: flex;
 `;
 
@@ -49,6 +50,7 @@ const GridBlock = styled.div`
   width: 100%;
   overflow-y: auto;
   overflow-x: auto;
+  margin-top: ${(props) => (props.detail ? props.detail : '')};
 
   @media only screen and (max-width: 768px) {
     display: ${(props) => (props.hide ? 'none' : 'grid')};
@@ -139,6 +141,7 @@ const GridMain = () => {
 
   useEffect(() => {
     const pathnameArr = params.pathname.split('/');
+    console.log(params);
     setCurrentNav(pathnameArr[2]);
     if (pathnameArr.length === 2) {
       setNavVisible(false);
@@ -193,13 +196,17 @@ const GridMain = () => {
         </BarWrapper>
       </SecondNav>
       <GridBlock hide={true}>
-        <Route exact path="/main/project" component={Menu} />
+        {/* <Menu /> */}
+        {params.pathname === '/main/project' && <Menu />}
+        {/* <Route exact path="/main/project" component={Menu} /> */}
       </GridBlock>
       <GridBlock hide>
         <MenuTitle
-          title={currentNav === undefined ? '' : currentNav}></MenuTitle>
+          title={
+            currentNav === undefined ? '' : currentNav.toUpperCase()
+          }></MenuTitle>
       </GridBlock>
-      <GridBlock content>
+      <GridBlock content detail="4px">
         <Switch>
           <Route path="/main/about" component={About} />
           <Route
@@ -208,7 +215,7 @@ const GridMain = () => {
             component={() => <Content imgData={imageData} />}
           />
           <Route path="/main/project/:id" component={Detail} />
-          <Route path="/main/contact" component={<Contact />} />
+          <Route path="/main/contact" component={Contact} />
           <Route path="/main/matters" component={Matters} />
         </Switch>
       </GridBlock>

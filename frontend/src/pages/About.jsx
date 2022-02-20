@@ -10,6 +10,7 @@ const Container = styled.div`
   padding-left: 80px;
   flex-wrap: wrap;
   overflow-y: auto;
+  font-size: 12px;
 
   & h4 {
     margin: 0px;
@@ -38,6 +39,9 @@ const BoldName = styled.div`
 const Wrapper = styled.div`
   display: flex;
   width: 100%;
+  /* & * {
+    font-size: 12px;
+  } */
 `;
 
 const NameBox = (props) => {

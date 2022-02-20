@@ -63,7 +63,8 @@ const Content = ({ imgData }) => {
       {imgData
         .filter(
           (item) =>
-            (state.category === 'all' || state.category === item.post_type) &&
+            (state.category === 'all' ||
+              state.category === item.fields.post_type) &&
             item
         )
         .map((item, index) => {
@@ -94,81 +95,3 @@ const Content = ({ imgData }) => {
 };
 
 export default Content;
-
-const itemData = [
-  {
-    img: 'https://picsum.photos/seed/picsum/200/200',
-    title: 'Breakfast',
-    type: 'first',
-  },
-  {
-    img: '/images/example/2.jpeg',
-    title: 'Burger',
-    type: 'first',
-  },
-  {
-    img: '/images/example/3.jpeg',
-    title: 'Camera',
-    type: 'second',
-  },
-  {
-    img: '/images/example/4.jpeg',
-    title: 'Coffee',
-    type: 'second',
-  },
-  {
-    img: '/images/example/5.jpeg',
-    title: 'Hats',
-    type: 'second',
-  },
-  {
-    img: '/images/example/6.jpeg',
-    title: 'Honey',
-    type: 'third',
-  },
-  {
-    img: '/images/example/7.jpeg',
-    title: 'Basketball',
-    type: 'first',
-  },
-  {
-    img: '/images/example/8.jpeg',
-    title: 'Fern',
-    type: 'fourth',
-  },
-  {
-    img: '/images/example/9.jpeg',
-    title: 'Breakfast',
-    type: 'third',
-  },
-  {
-    img: '/images/example/10.jpeg',
-    title: 'Burger',
-    type: 'first',
-  },
-  {
-    img: '/images/example/11.jpeg',
-    title: 'Camera',
-    type: 'first',
-  },
-  {
-    img: '/images/example/12.jpeg',
-    title: 'Coffee',
-    type: 'first',
-  },
-  {
-    img: '/images/example/13.jpeg',
-    title: 'Hats',
-    type: 'fourth',
-  },
-  {
-    img: '/images/example/14.jpeg',
-    title: 'Honey',
-    type: 'first',
-  },
-  {
-    img: '/images/example/15.jpeg',
-    title: 'Basketball',
-    type: 'first',
-  },
-];

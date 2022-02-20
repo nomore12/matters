@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
+import { useLocation } from 'react-router-dom';
 
 const Container = styled.aside`
   width: 100%;
@@ -22,7 +23,8 @@ const MenuListItem = styled.li`
 const MenuButton = styled.button`
   border: none;
   background-color: rgba(1, 1, 1, 0);
-  font-size: 1rem;
+  font-size: 13px;
+  font-weight: 300;
   text-shadow: ${(props) => props.textShadow};
 
   &:hover {
@@ -38,6 +40,7 @@ const Menu = () => {
   const state = useSelector((store) => store.nav);
   const dispatch = useDispatch();
   const [currentMenu, setCurrentMenu] = useState(state.category);
+  const location = useLocation();
 
   const onButtonClick = (curr) => {
     dispatch(navSlice.actions.setCategory(curr));
@@ -64,8 +67,8 @@ const Menu = () => {
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
-              onClick={() => onButtonClick('first')}>
-              first
+              onClick={() => onButtonClick('office')}>
+              office
             </MenuButton>
           </MenuListItem>
           <MenuListItem>
@@ -75,8 +78,8 @@ const Menu = () => {
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
-              onClick={() => onButtonClick('second')}>
-              second
+              onClick={() => onButtonClick('commercial')}>
+              commercial
             </MenuButton>
           </MenuListItem>
           <MenuListItem>
@@ -86,8 +89,8 @@ const Menu = () => {
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
-              onClick={() => onButtonClick('third')}>
-              third
+              onClick={() => onButtonClick('hospitality')}>
+              hospitality
             </MenuButton>
           </MenuListItem>
           <MenuListItem>
@@ -97,8 +100,41 @@ const Menu = () => {
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
-              onClick={() => onButtonClick('fourth')}>
-              fourth
+              onClick={() => onButtonClick('exhibition')}>
+              exhibition
+            </MenuButton>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuButton
+              textShadow={
+                currentMenu === 'fourth'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('furniture')}>
+              furniture
+            </MenuButton>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuButton
+              textShadow={
+                currentMenu === 'fourth'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('unbuilt')}>
+              unbuilt
+            </MenuButton>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuButton
+              textShadow={
+                currentMenu === 'fourth'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('etc')}>
+              etc
             </MenuButton>
           </MenuListItem>
         </MenuList>

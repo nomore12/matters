@@ -33,10 +33,25 @@ const ImageContainer = styled.img`
   object-fit: contain;
 `;
 
+const DescDetail = styled.p`
+  width: 100%;
+  white-space: pre-wrap;
+  font-weight: 300;
+`;
+
+const Title = styled.h1`
+  font-weight: 600;
+  font-size: 16px;
+  width: 100%;
+  /* margin: 1rem; */
+  margin-bottom: 0;
+`;
+
 const Detail = (props) => {
   const params = useParams();
   const [imgSrc, setImgSrc] = useState();
   const location = useLocation();
+  const [title, setTitle] = useState();
   const [desc, setDesc] = useState();
 
   useEffect(() => {
@@ -49,11 +64,9 @@ const Detail = (props) => {
         .get(`https://mattersbackend.herokuapp.com/posts/${params.id}`)
         .then(function (response) {
           // 성공 핸들링
-          console.log('detail response', response);
           setImgSrc(response.data[0].fields.main_image);
-          setDesc(response.data[0].fields.description);
-          // setDesc(response.data[0].fields.description);
-          // setImageData(response.data);
+          setTitle(response.data[0].fields.title);
+          setDesc(response.data[0].fields.description.replaceAll('\n', '\n'));
         })
         .catch(function (error) {
           // 에러 핸들링
@@ -75,7 +88,8 @@ const Detail = (props) => {
       <ImageContainer
         src={`https://mattersbackend.herokuapp.com/media/${imgSrc}`}
       />
-      <p>{desc}</p>
+      <Title>{title}</Title>
+      <DescDetail>{desc}</DescDetail>
     </Container>
   );
 };

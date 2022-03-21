@@ -17,7 +17,8 @@ const LogoComp = styled(Logo)`
   height: ${(props) => props.height};
 
   @media only screen and (max-width: 768px) {
-    height: 72px;
+    padding-left: 24px;
+    height: 108px;
   }
 `;
 
@@ -31,7 +32,7 @@ function Landing() {
 
   return (
     <Container>
-      <Fade in={fade} easing={{ enter: 'ease-in' }} timeout={3000}>
+      <Fade in={fade} easing={{ enter: 'ease-in' }} timeout={6000}>
         <Link to="/main">
           <LogoComp height="160px" />
         </Link>

@@ -10,6 +10,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { herokuUrl, localUrl } from '../constant/urls';
 
 const Container = styled.div`
   height: 100vh;
@@ -122,7 +123,7 @@ const GridMain = () => {
 
     async function getImage() {
       await axios
-        .get('https://mattersbackend.herokuapp.com/posts/')
+        .get(`${localUrl}posts/`)
         .then(function (response) {
           // 성공 핸들링
           console.log('response', response);
@@ -136,6 +137,7 @@ const GridMain = () => {
           // 항상 실행되는 영역
         });
     }
+
     getImage();
   }, []);
 

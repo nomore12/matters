@@ -6,9 +6,10 @@ import { navSlice } from 'feature/navSlice';
 import { Detail } from 'pages';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { herokuUrl, localUrl } from '../constant/urls';
 
 const Container = styled(PerfectScrollbar)`
-  width: 100%;
+  width: 640px;
   display: grid;
   grid-template-columns: repeat(auto-fill, 164px);
   grid-template-rows: repeat(auto-fill, 164px);
@@ -24,7 +25,8 @@ const GrayscaleTransition = keyframes`
   0% {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
-  }100%{
+  }
+  100% {
     -webkit-filter: none;
     filter: none;
   }
@@ -82,7 +84,7 @@ const Content = ({ imgData }) => {
               }}>
               {/* <ImgWrapper> */}
               <ImageItem
-                src={`https://mattersbackend.herokuapp.com/media/${item.fields.thumbnail}`}
+                src={`${localUrl}media/${item.fields.thumbnail}`}
                 alt={item.fields.title}
                 title={item.fields.title}
               />

@@ -6,6 +6,10 @@ import { useLocation } from 'react-router-dom';
 
 const Container = styled.aside`
   width: 100%;
+  //display: flex;
+  //flex-direction: column;
+  //justify-content: flex-start;
+  //align-items: flex-start;
 `;
 
 const MenuList = styled.ul`
@@ -63,7 +67,18 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'first'
+                currentMenu === 'residential'
+                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
+                  : null
+              }
+              onClick={() => onButtonClick('residential')}>
+              residential
+            </MenuButton>
+          </MenuListItem>
+          <MenuListItem>
+            <MenuButton
+              textShadow={
+                currentMenu === 'office'
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
@@ -74,7 +89,7 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'second'
+                currentMenu === 'commercial'
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
@@ -85,7 +100,7 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'third'
+                currentMenu === 'hospitality'
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
@@ -96,7 +111,7 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'fourth'
+                currentMenu === 'exhibition'
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
@@ -107,7 +122,7 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'fourth'
+                currentMenu === 'furniture'
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
@@ -118,7 +133,7 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'fourth'
+                currentMenu === 'unbuilt'
                   ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
                   : null
               }
@@ -129,9 +144,7 @@ const Menu = () => {
           <MenuListItem>
             <MenuButton
               textShadow={
-                currentMenu === 'fourth'
-                  ? '0px 4px 8px rgba(0, 0, 0, 0.5)'
-                  : null
+                currentMenu === 'etc' ? '0px 4px 8px rgba(0, 0, 0, 0.5)' : null
               }
               onClick={() => onButtonClick('etc')}>
               etc

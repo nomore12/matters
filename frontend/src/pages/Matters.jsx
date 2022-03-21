@@ -37,7 +37,7 @@ const fadeIn = keyframes`
 const IT = styled.div`
   font-size: 2rem;
   font-weight: 800;
-  animation: 2s ${fadeIn} ease-out;
+  animation: 3s ${fadeIn} ease-out;
   margin-right: 1rem;
 `;
 
@@ -50,6 +50,7 @@ const MattersWrapper = styled.div`
 const InstaLink = styled.div`
   height: 64px;
   font-size: 5rem;
+
   &:hover {
     cursor: pointer;
   }
@@ -66,7 +67,7 @@ function Matters() {
   const [now, setNow] = useState(false);
 
   useEffect(() => {
-    setInterval(() => setMatters(true), 2000);
+    setInterval(() => setMatters(true), 3000);
     setInterval(() => setNow(true), 4000);
   }, []);
 

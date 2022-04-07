@@ -2,3 +2,7 @@
   box-sizing: border-box;
   font-family: 'NotoSansKR';
 }
+
+html, body {
+  height: 100%;
+}

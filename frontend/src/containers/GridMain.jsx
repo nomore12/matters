@@ -10,7 +10,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { herokuUrl, localUrl } from '../constant/urls';
+import { herokuUrl } from '../constant/urls';
 
 const Container = styled.div`
   height: 100vh;
@@ -119,11 +119,9 @@ const GridMain = () => {
   const [imageData, setImageData] = useState([]);
 
   useEffect(() => {
-    // axios.defaults.baseURL = 'http://127.0.0.1:8000/posts';
-
     async function getImage() {
       await axios
-        .get(`${localUrl}posts/`)
+        .get(`${herokuUrl}posts/`)
         .then(function (response) {
           // 성공 핸들링
           console.log('response', response);

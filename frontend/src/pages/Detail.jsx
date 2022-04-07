@@ -7,39 +7,28 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
 import { useParams, useRouteMatch, useLocation } from 'react-router-dom';
-import { herokuUrl, localUrl } from '../constant/urls';
+import { herokuUrl } from '../constant/urls';
 
 const Container = styled(PerfectScrollbar)`
-  //height: 100%;
   width: 640px;
-  //display: flex;
-  //flex-direction: column;
-  //align-items: flex-end;
-  //gap: 10px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   padding-left: 40px;
   line-height: 1.1em;
-  position: relative;
-  overflow: auto;
-  //height: 100%;
-  //display: flex;
-  //flex-direction: column;
+  border: 1px solid red;
 
-  //& h4 {
-  //  margin: 0px;
-  //}
+  .detail-wrapper {
+    padding: 2px;
+    width: 100%;
+    min-height: 100%;
+  }
 
   @media only screen and (max-width: 768px) {
     padding: 0;
     align-items: flex-start;
   }
 
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
-  //padding-left: 80px;
-  //line-height: 1.1em;
   & h4 {
     margin: 0px;
   }
@@ -68,16 +57,12 @@ const Title = styled.h1`
   font-weight: 600;
   font-size: 16px;
   width: 100%;
-  //height: 1rem; /* margin: 1rem; */
   margin-bottom: 0;
 `;
 
 const Box = styled.div`
-  padding: 20px;
-  height: 400px;
-  width: 200px;
-  margin: 2px;
-  background-color: lightsalmon;
+  width: 100%;
+  border: 1px solid black;
 `;
 
 const Detail = (props) => {
@@ -94,7 +79,7 @@ const Detail = (props) => {
 
     (async function getImage() {
       await axios
-        .get(`${localUrl}posts/${params.id}`)
+        .get(`${herokuUrl}posts/${params.id}`)
         .then(function (response) {
           // 성공 핸들링
           setImgSrc(response.data[0].fields.main_image);
@@ -112,24 +97,18 @@ const Detail = (props) => {
     // getImage();
   }, []);
 
-  // async function getPostDetail() {
-
-  // }
-
   return (
     <Container>
-      {/*<ImageContainer src={`${localUrl}media/${imgSrc}`} />*/}
-      {/*<Title>{title}</Title>*/}
-      {/*<DescDetail>{desc}</DescDetail>*/}
+      {/* <Box />
       <Box />
       <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
-      <Box />
+    <Box /> */}
+      {/* <Box /> */}
+      <Box>
+        <ImageContainer src={`${herokuUrl}media/${imgSrc}`} />
+        <Title>{title}</Title>
+        <DescDetail>{desc}</DescDetail>
+      </Box>
     </Container>
   );
 };

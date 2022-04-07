@@ -10,13 +10,14 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { herokuUrl, localUrl } from '../constant/urls';
+import { herokuUrl } from '../constant/urls';
 
 const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 4rem 4rem;
+  border: 1px solid red;
+  padding: 64px 64px 0 64px;
 
   .header {
     display: flex;
@@ -37,9 +38,6 @@ const Container = styled.div`
 
   .title {
     font-weight: 600;
-    //width: 720px;
-    //margin-top: 1rem;
-    //height: 2rem;
   }
 
   .navigation {
@@ -50,24 +48,22 @@ const Container = styled.div`
   .content {
     display: flex;
     width: 100%;
-    //margin-top: 4rem;
+    height: 100%;
+    border: 1px solid blue;
     justify-content: space-between;
-    //align-items: flex-start;
   }
 
   .content-menu {
-    //margin-top: 2rem;
     padding: 2rem 0;
   }
 
   .content-content {
-    //justify-self: flex-end;
     display: flex;
-    //justify-content: flex-end;
+    height: calc(100% - 108px);
   }
 
   .content-area {
-    //overflow: initial !important;
+    /* height: 100%; */
   }
 `;
 
@@ -99,9 +95,7 @@ function getActions(curr) {
   }
 }
 
-const GridMain = () => {
-  // const [currentNav, setCurrentNav] = useState('');
-  // const [navVisible, setNavVisible] = useState(false);
+const NewMain = () => {
   const [panelOn, setPanel] = useState(false);
   const [isClose, setClose] = useState(false);
   const { state } = useSelector((state) => state.nav.navState);
@@ -111,21 +105,26 @@ const GridMain = () => {
   const [imageData, setImageData] = useState([]);
 
   useEffect(() => {
-    // axios.defaults.baseURL = 'http://127.0.0.1:8000/posts';
-
     async function getImage() {
       await axios
-        .get(`${localUrl}posts/`)
-        .then(function (response) {
+        .get(`${herokuUrl}posts/`)
+        .then((response) => {
           // 성공 핸들링
           console.log('response', response);
           setImageData(response.data);
         })
-        .catch(function (error) {
+        .catch((error) => {
           // 에러 핸들링
-          console.log('erros', error);
+          console.log(
+            'erros',
+            Object.keys(error),
+            error.request,
+            error.response,
+            error.isAxiosError,
+            error.toJSON
+          );
         })
-        .then(function () {
+        .then(() => {
           // 항상 실행되는 영역
         });
     }
@@ -159,16 +158,13 @@ const GridMain = () => {
   };
 
   return (
-    <Container>
+    <Container className="main">
       <div className="logo">
         <LogoWrapper>
           <Link to="/main">
             <LogoComp />
           </Link>
         </LogoWrapper>
-        {/*<div className="header">*/}
-        {/*  <div className="page-name">{state}</div>*/}
-        {/*</div>*/}
         <div className="navigation">
           {params.pathname === '/main' && <Navigation />}
         </div>
@@ -202,4 +198,4 @@ const GridMain = () => {
   );
 };
 
-export default GridMain;
+export default NewMain;

@@ -11,7 +11,7 @@ import { Main } from 'containers';
 import axios from 'axios';
 
 const AppContainer = styled.div`
-  //height: 100vh;
+  height: 100%;
 `;
 
 function App() {

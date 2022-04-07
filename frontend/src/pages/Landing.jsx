@@ -11,6 +11,7 @@ const Container = styled.div`
   height: 100vh;
   justify-content: center;
   align-items: center;
+  padding-bottom: 60px;
 `;
 
 const LogoComp = styled(Logo)`
@@ -18,7 +19,6 @@ const LogoComp = styled(Logo)`
 
   @media only screen and (max-width: 768px) {
     padding-left: 24px;
-    height: 108px;
   }
 `;
 

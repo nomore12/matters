@@ -6,10 +6,22 @@ import { navSlice } from 'feature/navSlice';
 import { Detail } from 'pages';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { herokuUrl, localUrl } from '../constant/urls';
+import { herokuUrl } from '../constant/urls';
 
-const Container = styled(PerfectScrollbar)`
+const ContainerStyle = styled.div`
   width: 640px;
+  height: 100%;
+  display: block;
+  border: 1px solid green;
+
+  @media only screen and (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const ScrollBarWrapper = styled(PerfectScrollbar)`
+  width: 640px;
+  /* max-height: 100%; */
   display: grid;
   grid-template-columns: repeat(auto-fill, 164px);
   grid-template-rows: repeat(auto-fill, 164px);
@@ -30,6 +42,10 @@ const GrayscaleTransition = keyframes`
     -webkit-filter: none;
     filter: none;
   }
+`;
+
+const LinkWrapper = styled(Link)`
+  height: 164px !important;
 `;
 
 const ImageItem = styled.img`
@@ -61,38 +77,40 @@ const Content = ({ imgData }) => {
   }, []);
 
   return (
-    <Container>
-      {imgData
-        .filter(
-          (item) =>
-            (state.category === 'all' ||
-              state.category === item.fields.post_type) &&
-            item
-        )
-        .map((item, index) => {
-          console.log(item);
-          return (
-            <Link
-              key={index}
-              to={{
-                pathname: `/main/project/${item.pk}`,
-                pk: item.pk,
-                state: {
+    <ContainerStyle>
+      <ScrollBarWrapper>
+        {imgData
+          .filter(
+            (item) =>
+              (state.category === 'all' ||
+                state.category === item.fields.post_type) &&
+              item
+          )
+          .map((item, index) => {
+            console.log(item);
+            return (
+              <LinkWrapper
+                key={index}
+                to={{
+                  pathname: `/main/project/${item.pk}`,
                   pk: item.pk,
-                  data: item,
-                },
-              }}>
-              {/* <ImgWrapper> */}
-              <ImageItem
-                src={`${localUrl}media/${item.fields.thumbnail}`}
-                alt={item.fields.title}
-                title={item.fields.title}
-              />
-              {/* </ImgWrapper> */}
-            </Link>
-          );
-        })}
-    </Container>
+                  state: {
+                    pk: item.pk,
+                    data: item,
+                  },
+                }}>
+                {/* <ImgWrapper> */}
+                <ImageItem
+                  src={`${herokuUrl}media/${item.fields.thumbnail}`}
+                  alt={item.fields.title}
+                  title={item.fields.title}
+                />
+                {/* </ImgWrapper> */}
+              </LinkWrapper>
+            );
+          })}
+      </ScrollBarWrapper>
+    </ContainerStyle>
   );
 };
 

@@ -48,6 +48,7 @@ const LinkWapper = styled(Link)`
 const BlinkText = styled.span`
   animation: ${blinker} 2s linear;
   font-weight: 600;
+  color: black;
 `;
 
 function Navigation() {

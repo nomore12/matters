@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { getActions } from '../utils/stateUtils';
 
 const Container = styled.div`
   width: 640px;
@@ -36,6 +38,11 @@ const Map = styled.div`
 `;
 
 function Contact() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getActions('CONTACT')());
+  }, []);
   return (
     <Container>
       <div>

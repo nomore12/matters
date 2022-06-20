@@ -92,7 +92,7 @@ function Main() {
 
   useEffect(() => {
     return history.listen((location) => {
-      console.log(location);
+      // console.log(location);
       if (history.action === 'POP') {
         dispatch(getActions(state)());
       }

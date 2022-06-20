@@ -50,7 +50,7 @@ function MobileNav(props) {
   const state = useSelector((state) => state.nav.navState);
 
   useEffect(() => {
-    console.log(state);
+    // console.log(state);
   }, [state]);
 
   return (

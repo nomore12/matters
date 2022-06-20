@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { ReactComponent as Instagram } from 'static/images/instagram.svg';
+import { useDispatch } from 'react-redux';
+import { getActions } from '../utils/stateUtils';
 
 const Container = styled.div`
   width: 640px;
@@ -65,10 +67,12 @@ const Content = styled.div`
 function Matters() {
   const [matters, setMatters] = useState(false);
   const [now, setNow] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setInterval(() => setMatters(true), 3000);
     setInterval(() => setNow(true), 4000);
+    dispatch(getActions('ABOUT')());
   }, []);
 
   return (

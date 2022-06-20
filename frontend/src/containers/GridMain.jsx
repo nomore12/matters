@@ -124,12 +124,12 @@ const GridMain = () => {
         .get(`${herokuUrl}posts/`)
         .then(function (response) {
           // 성공 핸들링
-          console.log('response', response);
+          // console.log('response', response);
           setImageData(response.data);
         })
         .catch(function (error) {
           // 에러 핸들링
-          console.log('erros', error);
+          // console.log('erros', error);
         })
         .then(function () {
           // 항상 실행되는 영역
@@ -141,7 +141,7 @@ const GridMain = () => {
 
   useEffect(() => {
     const pathnameArr = params.pathname.split('/');
-    console.log(params);
+    // console.log(params);
     setCurrentNav(pathnameArr[2]);
     if (pathnameArr.length === 2) {
       setNavVisible(false);
@@ -152,7 +152,7 @@ const GridMain = () => {
 
   useEffect(() => {
     return history.listen((location) => {
-      console.log(location);
+      // console.log(location);
       if (history.action === 'POP') {
         dispatch(getActions(state)());
       }

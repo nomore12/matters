@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { getActions } from '../utils/stateUtils';
 
 const Container = styled.div`
   display: flex;
@@ -55,6 +57,12 @@ const NameBox = (props) => {
 };
 
 function About() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getActions('ABOUT')());
+  }, []);
+
   return (
     <Container>
       <NameBox first="최윤성" second="Yoonsung Choi" />

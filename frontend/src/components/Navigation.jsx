@@ -31,10 +31,10 @@ const blinker = ({ start, mid, end }) => keyframes`
     opacity: 0;
     /* font: bold; */
   }
-  ${mid}{
+  ${mid} {
     opacity: 0;
   }
-  ${end}{
+  ${end} {
     opacity: 1;
   }
 `;
@@ -56,7 +56,7 @@ function Navigation() {
   const state = useSelector((state) => state.nav.navState);
 
   useEffect(() => {
-    console.log(state);
+    // console.log(state);
   }, [state]);
 
   return (

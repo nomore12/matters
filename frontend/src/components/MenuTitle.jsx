@@ -16,7 +16,7 @@ const MenuTitle = (props) => {
   const state = useSelector((store) => store.nav.navState);
 
   useEffect(() => {
-    console.log('title', state);
+    // console.log('title', state);
   }, [state]);
 
   return (

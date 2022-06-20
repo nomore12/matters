@@ -10,13 +10,12 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-import { herokuUrl } from '../constant/urls';
+import { herokuUrl, localUrl } from '../constant/urls';
 
 const Container = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  border: 1px solid red;
   padding: 64px 64px 0 64px;
 
   .header {
@@ -49,7 +48,6 @@ const Container = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    border: 1px solid blue;
     justify-content: space-between;
   }
 
@@ -107,10 +105,10 @@ const NewMain = () => {
   useEffect(() => {
     async function getImage() {
       await axios
-        .get(`${herokuUrl}posts/`)
+        .get(`${localUrl}posts/`)
         .then((response) => {
           // 성공 핸들링
-          console.log('response', response);
+          // console.log('response', response);
           setImageData(response.data);
         })
         .catch((error) => {
@@ -145,7 +143,7 @@ const NewMain = () => {
 
   useEffect(() => {
     return history.listen((location) => {
-      console.log(location);
+      // console.log(location);
       if (history.action === 'POP') {
         dispatch(getActions(state)());
       }

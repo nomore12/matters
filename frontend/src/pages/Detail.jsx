@@ -73,7 +73,7 @@ const Detail = (props) => {
   const [desc, setDesc] = useState();
 
   useEffect(() => {
-    console.log('detail', props, params);
+    // console.log('detail', props, params);
     // const src = location.pathname;
     // setImgSrc(src.substring(13, src.length));
 
@@ -88,7 +88,7 @@ const Detail = (props) => {
         })
         .catch(function (error) {
           // 에러 핸들링
-          console.log('detail response error', error);
+          // console.log('detail response error', error);
         })
         .then(function () {
           // 항상 실행되는 영역

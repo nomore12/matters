@@ -22,9 +22,10 @@ const Container = styled.div`
     line-height: 1.6em;
   }
 
-  @media only screen and (max-width: 425px) {
-    /* width: calc(100% - 160px); */
+  @media only screen and (max-width: 768px) {
+    width: 100%;
     padding: 0px;
+    margin-top: 48px;
     font-size: 0.7rem;
   }
 `;

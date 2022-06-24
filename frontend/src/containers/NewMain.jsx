@@ -19,6 +19,12 @@ const Container = styled.div`
   padding: 64px 64px 0 64px;
   position: relative;
 
+  @media only screen and (max-width: 768px) {
+    padding: 24px;
+    //align-items: center;
+    //justify-content: center;
+  }
+
   .header {
     display: flex;
     justify-content: flex-end;
@@ -65,11 +71,16 @@ const Container = styled.div`
   .content-content {
     display: flex;
     height: 100%;
-    //height: calc(100% - 108px);
+    justify-content: flex-end;
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
 
   .content-area {
     /* height: 100%; */
+    width: 100%;
   }
 
   .logo {
@@ -87,13 +98,14 @@ const MobileMenu = styled.div`
   @media only screen and (max-width: 768px) {
     display: block;
     position: absolute;
-    right: 40px;
-    top: 0px;
+    right: 30px;
+    top: -20px;
+    z-index: 5;
   }
 
   #nav-icon3 {
-    width: 60px;
-    height: 45px;
+    width: 40px;
+    height: 32px;
     position: relative;
     margin: 50px auto;
     -webkit-transform: rotate(0deg);
@@ -110,7 +122,7 @@ const MobileMenu = styled.div`
   #nav-icon3 span {
     display: block;
     position: absolute;
-    height: 9px;
+    height: 6px;
     width: 100%;
     background: #000;
     opacity: 1;
@@ -131,11 +143,11 @@ const MobileMenu = styled.div`
 
   #nav-icon3 span:nth-child(2),
   #nav-icon3 span:nth-child(3) {
-    top: 18px;
+    top: 11px;
   }
 
   #nav-icon3 span:nth-child(4) {
-    top: 36px;
+    top: 22px;
   }
 
   #nav-icon3.open span:nth-child(1) {
@@ -163,6 +175,14 @@ const MobileMenu = styled.div`
     width: 0%;
     left: 50%;
   }
+`;
+
+const MobileTitle = styled.div`
+  font-size: 1.5rem;
+  font-weight: 500;
+  height: 64px;
+  display: flex;
+  align-items: center;
 `;
 
 const LogoWrapper = styled.div`
@@ -194,16 +214,22 @@ function getActions(curr) {
 }
 
 const NewMain = () => {
-  const [panelOn, setPanel] = useState(false);
-  const [isClose, setClose] = useState(false);
   const { state } = useSelector((state) => state.nav.navState);
   const dispatch = useDispatch();
   const history = useHistory();
   const params = useLocation();
   const [imageData, setImageData] = useState([]);
   const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
+  const mobileMenu = useRef(null);
+  const [browserWidth, setBrowserWidth] = useState(0);
+
+  const handleResize = () => {
+    setBrowserWidth(window.innerWidth);
+  };
 
   useEffect(() => {
+    window.addEventListener('resize', handleResize);
+
     async function getImage() {
       await axios
         .get(`${localUrl}posts/`)
@@ -229,10 +255,18 @@ const NewMain = () => {
     }
 
     getImage();
-  }, []);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [browserWidth]);
 
   useEffect(() => {
     return history.listen((location) => {
+      // console.log(location);
+      // if (location.pathname === '/main') {
+      //   dispatch('');
+      // } else
       if (history.action === 'POP') {
         dispatch(getActions(state)());
       }
@@ -240,8 +274,9 @@ const NewMain = () => {
   }, [history]);
 
   const onClose = () => {
-    setClose(!isClose);
-    setPanel(!panelOn);
+    setMobileMenuIsOpen(false);
+    mobileMenu.current.classList.contains('open') &&
+      mobileMenu.current.classList.remove('open');
   };
 
   return (
@@ -258,6 +293,7 @@ const NewMain = () => {
       </div>
       <MobileMenu>
         <div
+          ref={mobileMenu}
           className="menu btn12"
           data-menu="12"
           id="nav-icon3"
@@ -277,8 +313,10 @@ const NewMain = () => {
           <span></span>
         </div>
       </MobileMenu>
-      {mobileMenuIsOpen && (
-        <MobileNav onClose={() => setMobileMenuIsOpen(false)}></MobileNav>
+      {/*<MobileTitle>{params.pathname.split('/')[2].toUpperCase()}</MobileTitle>*/}
+      {/*<MobileTitle>{state}</MobileTitle>*/}
+      {mobileMenuIsOpen && browserWidth <= 768 && (
+        <MobileNav onClose={onClose} width={browserWidth}></MobileNav>
       )}
       <div className="content">
         <div className="content-menu">
@@ -295,6 +333,7 @@ const NewMain = () => {
               <Route path="/main/about" component={About} />
               exact
               <Route
+                exact
                 path="/main/project"
                 component={() => <Content imgData={imageData} />}
               />

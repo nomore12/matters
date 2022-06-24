@@ -16,6 +16,9 @@ const ContainerStyle = styled.div`
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
+    width: 100%;
+    height: calc(100% - 72px);
+    margin-top: 36px;
   }
 `;
 
@@ -30,7 +33,11 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
   padding-right: 12px;
 
   @media only screen and (max-width: 768px) {
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 6px;
+    grid-gap: 1rem;
+    //grid-template-columns: repeat(auto-fill, 28%);
   }
 `;
 
@@ -99,7 +106,6 @@ const Content = ({ imgData }) => {
               item
           )
           .map((item, index) => {
-            console.log(item);
             return (
               <LinkWrapper
                 key={index}

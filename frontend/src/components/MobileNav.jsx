@@ -15,9 +15,11 @@ const NaveWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  //position: absolute;
-  //top: 50%;
-  //left: 50%;
+  position: absolute;
+  top: -40px;
+  background-color: white;
+  z-index: 3;
+  opacity: 0.8;
 
   & * {
     text-decoration: none;
@@ -29,6 +31,12 @@ const NaveWrapper = styled.div`
     &:focus {
       font-weight: 600;
     }
+  }
+
+  & > a {
+    margin: 10px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
   }
 `;
 
@@ -54,11 +62,21 @@ function MobileNav(props) {
 
   useEffect(() => {
     // console.log(state);
-  }, [state]);
+
+    console.log(props.width);
+  }, [props.width]);
 
   return (
     <>
-      <NaveWrapper display={state === '' ? 'flex' : 'none'}>
+      <NaveWrapper>
+        <Link
+          onClick={() => {
+            props.onClose();
+            dispatch(about());
+          }}
+          to="/main">
+          HOME
+        </Link>
         <Link
           onClick={() => {
             props.onClose();
@@ -73,7 +91,7 @@ function MobileNav(props) {
             dispatch(project());
           }}
           to="/main/project">
-          PROJ`ECT
+          PROJECT
         </Link>
         <Link
           onClick={() => {

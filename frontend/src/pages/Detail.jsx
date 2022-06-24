@@ -25,6 +25,9 @@ const Container = styled(PerfectScrollbar)`
   @media only screen and (max-width: 768px) {
     padding: 0;
     align-items: flex-start;
+    margin-top: 36px;
+    //margin-top: 36px;
+    width: 100%;
   }
 
   & h4 {

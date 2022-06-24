@@ -12,6 +12,7 @@ const NaveWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  //border: 1px solid blue;
 
   & * {
     text-decoration: none;
@@ -24,6 +25,15 @@ const NaveWrapper = styled.div`
       font-weight: 600;
     }
   }
+
+  @media only screen and (max-width: 1024px) {
+    margin-top: 24px;
+    width: 100%;
+  }
+
+  //@media only screen and (max-width: 769px) {
+  //  //display: none;
+  //}
 `;
 
 const blinker = ({ start, mid, end }) => keyframes`
@@ -41,7 +51,7 @@ const blinker = ({ start, mid, end }) => keyframes`
 
 const LinkWapper = styled(Link)`
   &:visited {
-    color: '#fff';
+    color: '#ffffff';
   }
 `;
 

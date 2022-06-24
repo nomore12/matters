@@ -7,21 +7,19 @@ import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
 import { useParams, useRouteMatch, useLocation } from 'react-router-dom';
-import { herokuUrl } from '../constant/urls';
+import { herokuUrl, localUrl } from '../constant/urls';
 
 const Container = styled(PerfectScrollbar)`
   width: 640px;
-  height: 100%;
+  max-height: calc(100% - 128px);
   display: flex;
   flex-direction: column;
   padding-left: 40px;
   line-height: 1.1em;
-  border: 1px solid red;
 
   .detail-wrapper {
     padding: 2px;
     width: 100%;
-    min-height: 100%;
   }
 
   @media only screen and (max-width: 768px) {
@@ -42,19 +40,18 @@ const Container = styled(PerfectScrollbar)`
 const ImageContainer = styled.img`
   box-sizing: border-box;
   width: 100%;
-  height: 600px;
+  //height: 600px;
   object-fit: cover;
 `;
 
 const DescDetail = styled.p`
   width: 100%;
-  //height: 100%;
   white-space: pre-wrap;
   font-weight: 300;
 `;
 
 const Title = styled.h1`
-  font-weight: 600;
+  font-weight: 400;
   font-size: 16px;
   width: 100%;
   margin-bottom: 0;
@@ -62,14 +59,17 @@ const Title = styled.h1`
 
 const Box = styled.div`
   width: 100%;
-  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Detail = (props) => {
   const params = useParams();
   const [imgSrc, setImgSrc] = useState();
-  const location = useLocation();
   const [title, setTitle] = useState();
+  const [subTitle, setSubTitle] = useState();
+  const [date, setDate] = useState();
+
   const [desc, setDesc] = useState();
 
   useEffect(() => {
@@ -79,12 +79,17 @@ const Detail = (props) => {
 
     (async function getImage() {
       await axios
-        .get(`${herokuUrl}posts/${params.id}`)
+        .get(`${localUrl}posts/${params.id}`)
         .then(function (response) {
           // 성공 핸들링
           setImgSrc(response.data[0].fields.main_image);
           setTitle(response.data[0].fields.title);
+          setSubTitle(response.data[0].fields.sudtitle);
+          setDate(
+            `${response.data[0].fields.from_date}-${response.data[0].fields.to_date}`
+          );
           setDesc(response.data[0].fields.description.replaceAll('\n', '\n'));
+          console.log(response.data);
         })
         .catch(function (error) {
           // 에러 핸들링
@@ -99,16 +104,9 @@ const Detail = (props) => {
 
   return (
     <Container>
-      {/* <Box />
-      <Box />
-      <Box />
-    <Box /> */}
-      {/* <Box /> */}
-      <Box>
-        <ImageContainer src={`${herokuUrl}media/${imgSrc}`} />
-        <Title>{title}</Title>
-        <DescDetail>{desc}</DescDetail>
-      </Box>
+      <ImageContainer src={`${localUrl}media/${imgSrc}`} />
+      <Title>{`| ${title} | ${subTitle} | ${date}`}</Title>
+      <DescDetail>{desc}</DescDetail>
     </Container>
   );
 };

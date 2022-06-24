@@ -11,7 +11,7 @@ import { getActions } from 'utils/stateUtils';
 
 const ContainerStyle = styled.div`
   width: 640px;
-  height: 100%;
+  height: calc(100% - 108px);
   display: block;
 
   @media only screen and (max-width: 768px) {
@@ -111,12 +111,6 @@ const Content = ({ imgData }) => {
                     data: item,
                   },
                 }}>
-                {/* <ImgWrapper> */}
-                {/*<ImageItem*/}
-                {/*  src={`${herokuUrl}media/${item.fields.thumbnail}`}*/}
-                {/*  alt={item.fields.title}*/}
-                {/*  title={item.fields.title}*/}
-                {/*/>*/}
                 <ItemWrapper>
                   <ImageItem
                     src={`${localUrl}media/${item.fields.thumbnail}`}

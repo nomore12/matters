@@ -17,6 +17,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   padding: 64px 64px 0 64px;
+  position: relative;
 
   .header {
     display: flex;
@@ -29,14 +30,12 @@ const Container = styled.div`
     align-items: flex-end;
   }
 
-  @media only screen and (max-width: 768px) {
-    //padding: 0 1em;
-    //grid-template-columns: 1fr 64px;
-    //grid-template-rows: 148px 1fr;
-  }
-
   .title {
     font-weight: 600;
+
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   .navigation {
@@ -49,19 +48,120 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     justify-content: space-between;
+
+    @media only screen and (max-width: 1024px) {
+      margin-top: 24px;
+    }
   }
 
   .content-menu {
     padding: 2rem 0;
+
+    @media only screen and (max-width: 1024px) {
+      display: none;
+    }
   }
 
   .content-content {
     display: flex;
-    height: calc(100% - 108px);
+    height: 100%;
+    //height: calc(100% - 108px);
   }
 
   .content-area {
     /* height: 100%; */
+  }
+
+  .logo {
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+`;
+
+const MobileMenu = styled.div`
+  display: none;
+  margin: 0;
+  padding: 0;
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    position: absolute;
+    right: 40px;
+    top: 0px;
+  }
+
+  #nav-icon3 {
+    width: 60px;
+    height: 45px;
+    position: relative;
+    margin: 50px auto;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.5s ease-in-out;
+    -moz-transition: 0.5s ease-in-out;
+    -o-transition: 0.5s ease-in-out;
+    transition: 0.5s ease-in-out;
+    cursor: pointer;
+  }
+
+  #nav-icon3 span {
+    display: block;
+    position: absolute;
+    height: 9px;
+    width: 100%;
+    background: #000;
+    opacity: 1;
+    left: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-transition: 0.25s ease-in-out;
+    -moz-transition: 0.25s ease-in-out;
+    -o-transition: 0.25s ease-in-out;
+    transition: 0.25s ease-in-out;
+  }
+
+  #nav-icon3 span:nth-child(1) {
+    top: 0px;
+  }
+
+  #nav-icon3 span:nth-child(2),
+  #nav-icon3 span:nth-child(3) {
+    top: 18px;
+  }
+
+  #nav-icon3 span:nth-child(4) {
+    top: 36px;
+  }
+
+  #nav-icon3.open span:nth-child(1) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
+  }
+
+  #nav-icon3.open span:nth-child(2) {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  #nav-icon3.open span:nth-child(3) {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+  }
+
+  #nav-icon3.open span:nth-child(4) {
+    top: 18px;
+    width: 0%;
+    left: 50%;
   }
 `;
 
@@ -101,6 +201,7 @@ const NewMain = () => {
   const history = useHistory();
   const params = useLocation();
   const [imageData, setImageData] = useState([]);
+  const [mobileMenuIsOpen, setMobileMenuIsOpen] = useState(false);
 
   useEffect(() => {
     async function getImage() {
@@ -130,20 +231,8 @@ const NewMain = () => {
     getImage();
   }, []);
 
-  // useEffect(() => {
-  //   const pathnameArr = params.pathname.split('/');
-  //   console.log(params);
-  //   setCurrentNav(pathnameArr[2]);
-  //   if (pathnameArr.length === 2) {
-  //     setNavVisible(false);
-  //   } else {
-  //     setNavVisible(true);
-  //   }
-  // }, [params.pathname]);
-
   useEffect(() => {
     return history.listen((location) => {
-      // console.log(location);
       if (history.action === 'POP') {
         dispatch(getActions(state)());
       }
@@ -167,6 +256,30 @@ const NewMain = () => {
           {params.pathname === '/main' && <Navigation />}
         </div>
       </div>
+      <MobileMenu>
+        <div
+          className="menu btn12"
+          data-menu="12"
+          id="nav-icon3"
+          onClick={(e) => {
+            e.preventDefault();
+            if (mobileMenuIsOpen) {
+              e.currentTarget.classList.remove('open');
+              setMobileMenuIsOpen(false);
+            } else {
+              e.currentTarget.classList.add('open');
+              setMobileMenuIsOpen(true);
+            }
+          }}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </MobileMenu>
+      {mobileMenuIsOpen && (
+        <MobileNav onClose={() => setMobileMenuIsOpen(false)}></MobileNav>
+      )}
       <div className="content">
         <div className="content-menu">
           {params.pathname === '/main/project' && <Menu />}
@@ -180,8 +293,8 @@ const NewMain = () => {
           <div className="content-area">
             <Switch>
               <Route path="/main/about" component={About} />
+              exact
               <Route
-                exact
                 path="/main/project"
                 component={() => <Content imgData={imageData} />}
               />

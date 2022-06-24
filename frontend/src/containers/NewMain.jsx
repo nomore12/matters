@@ -7,8 +7,6 @@ import { About, Contact, Matters, Detail } from 'pages/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 import { useHistory, useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { herokuUrl, localUrl } from '../constant/urls';
 
@@ -255,6 +253,9 @@ const NewMain = () => {
     }
 
     getImage();
+    browserWidth > 768
+      ? dispatch(navSlice.actions.setMobile(false))
+      : dispatch(navSlice.actions.setMobile(true));
 
     return () => {
       window.removeEventListener('resize', handleResize);

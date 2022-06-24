@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getActions } from '../utils/stateUtils';
 
 const Container = styled.div`
@@ -9,7 +9,7 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex;
+  //justify-content: flex;
   gap: 10px;
   padding-left: 80px;
   line-height: 1.1em;
@@ -27,6 +27,12 @@ const Container = styled.div`
   & .contact {
     margin-bottom: 6px;
   }
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0px;
+    margin-top: 48px;
+  }
 `;
 
 const Matters = styled.div`
@@ -39,6 +45,8 @@ const Map = styled.div`
 
 function Contact() {
   const dispatch = useDispatch();
+  const [imgWidth, setImgWidth] = useState();
+  const isMobile = useSelector((state) => state.nav.isMobile);
 
   useEffect(() => {
     dispatch(getActions('CONTACT')());
@@ -57,7 +65,7 @@ function Contact() {
       </div>
       <div>
         <Map>
-          <img src={'/images/map.png'} width={'560px'} />
+          <img src={'/images/map.png'} width={isMobile ? '100%' : '560px'} />
         </Map>
       </div>
     </Container>

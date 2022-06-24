@@ -8,6 +8,7 @@ export const navSlice = createSlice({
     navState: '',
     stateStack: stateStack,
     category: 'all',
+    isMobile: false,
   },
   reducers: {
     landing: (state) => {
@@ -28,6 +29,9 @@ export const navSlice = createSlice({
     setCategory: (state, payload) => {
       state.category = payload.payload;
     },
+    setMobile: (state, payload) => {
+      state.isMobile = payload.payload;
+    },
   },
 });
 
@@ -38,6 +42,13 @@ function setState(state, stateArr, curr) {
   return curr;
 }
 
-export const { landing, about, project, contact, matters, setCategory } =
-  navSlice.actions;
+export const {
+  landing,
+  about,
+  project,
+  contact,
+  matters,
+  setCategory,
+  setMobile,
+} = navSlice.actions;
 export default navSlice.reducer;

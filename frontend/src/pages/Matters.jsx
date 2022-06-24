@@ -19,6 +19,7 @@ const Container = styled.div`
     width: 100%;
     padding: 0px;
     font-size: 0.7rem;
+    margin-top: 36px;
   }
 
   .info {

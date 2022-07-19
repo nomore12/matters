@@ -4,6 +4,8 @@ import { ReactComponent as Logo } from 'static/images/logo.svg';
 import styled from 'styled-components';
 import Fade from '@mui/material/Fade';
 import { Main } from 'containers/index';
+import { setCategory } from '../feature/navSlice';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +18,7 @@ const Container = styled.div`
 
 const LogoComp = styled(Logo)`
   height: ${(props) => props.height};
+  margin-left: 80px;
 
   @media only screen and (max-width: 768px) {
     padding-left: 24px;
@@ -24,17 +27,19 @@ const LogoComp = styled(Logo)`
 
 function Landing() {
   const [fade, setFade] = useState();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setFade(true);
     return () => setFade(false);
+    // dispatch(setCategory('all'));
   }, []);
 
   return (
     <Container>
       <Fade in={fade} easing={{ enter: 'ease-in' }} timeout={6000}>
         <Link to="/main">
-          <LogoComp height="160px" />
+          <LogoComp height="240px" width="240px" />
         </Link>
       </Fade>
       <>

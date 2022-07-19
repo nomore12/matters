@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActions } from '../utils/stateUtils';
+import { setCategory } from '../feature/navSlice';
 
 const Container = styled.div`
   width: 640px;
@@ -50,6 +51,7 @@ function Contact() {
 
   useEffect(() => {
     dispatch(getActions('CONTACT')());
+    dispatch(setCategory('all'));
   }, []);
   return (
     <Container>

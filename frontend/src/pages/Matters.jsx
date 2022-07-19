@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 import { ReactComponent as Instagram } from 'static/images/instagram.svg';
 import { useDispatch } from 'react-redux';
 import { getActions } from '../utils/stateUtils';
+import { setCategory } from '../feature/navSlice';
 
 const Container = styled.div`
   width: 640px;
@@ -10,11 +11,11 @@ const Container = styled.div`
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex;
   gap: 10px;
   padding-left: 80px;
   line-height: 1.6em;
   font-size: 12px;
+
   @media only screen and (max-width: 768px) {
     width: 100%;
     padding: 0px;
@@ -74,6 +75,7 @@ function Matters() {
     setInterval(() => setMatters(true), 3000);
     setInterval(() => setNow(true), 4000);
     dispatch(getActions('ABOUT')());
+    dispatch(setCategory('all'));
   }, []);
 
   return (

@@ -9,17 +9,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const NaveWrapper = styled.div`
-  height: 100%;
-  width: 100%;
+  //height: calc(100% + 14px);
+  //width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute;
-  top: -40px;
   background-color: white;
   z-index: 3;
   opacity: 0.8;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
 
   & * {
     text-decoration: none;
@@ -60,11 +63,11 @@ function MobileNav(props) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state.nav.navState);
 
-  useEffect(() => {
-    // console.log(state);
-
-    console.log(props.width);
-  }, [props.width]);
+  // useEffect(() => {
+  //   // console.log(state);
+  //
+  //   console.log(props.width);
+  // }, [props.width]);
 
   return (
     <>

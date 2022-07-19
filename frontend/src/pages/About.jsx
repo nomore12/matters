@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { getActions } from '../utils/stateUtils';
+import { setCategory } from '../feature/navSlice';
 
 const Container = styled.div`
   display: flex;
@@ -62,6 +63,7 @@ function About() {
 
   useEffect(() => {
     dispatch(getActions('ABOUT')());
+    dispatch(setCategory('all'));
   }, []);
 
   return (

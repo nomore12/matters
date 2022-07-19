@@ -1,18 +1,49 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { navSlice } from 'feature/navSlice';
+import { navSlice, setCategory } from 'feature/navSlice';
 import { Detail } from 'pages';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { herokuUrl, localUrl } from '../constant/urls';
 import { getActions } from 'utils/stateUtils';
+import Dropdown from './Dropdown';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import { styled as muiStyled } from '@mui/material/styles';
+import { InputBase } from '@mui/material';
+import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+
+const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
+  'label + &': {
+    marginTop: theme.spacing(3),
+    display: 'none',
+  },
+  '& .MuiInputBase-input': {
+    borderRadius: 3,
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #cdd4da',
+    fontSize: 14,
+    padding: '10px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+  },
+  '&:focus': {
+    borderRadius: 4,
+    borderColor: '#80bdff',
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+  },
+}));
 
 const ContainerStyle = styled.div`
   width: 640px;
   height: calc(100% - 108px);
   display: block;
+  //border: 1px solid red;
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
@@ -24,6 +55,7 @@ const ContainerStyle = styled.div`
 
 const ScrollBarWrapper = styled(PerfectScrollbar)`
   width: 640px;
+  //height: calc(100% - 10px);
   display: grid;
   grid-template-columns: repeat(auto-fill, 164px);
   grid-template-rows: repeat(auto-fill, 204px);
@@ -31,13 +63,13 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
   justify-content: flex-end;
   padding-bottom: 24px;
   padding-right: 12px;
+  //border: 1px solid blue;
 
   @media only screen and (max-width: 768px) {
     justify-content: space-between;
     width: 100%;
     padding: 0 6px;
     grid-gap: 1rem;
-    //grid-template-columns: repeat(auto-fill, 28%);
   }
 `;
 
@@ -87,24 +119,63 @@ const ItemTitle = styled.p`
   bottom: 0;
 `;
 
+const categories = [
+  'all',
+  'residential',
+  'office',
+  'commercial',
+  'hospitality',
+  'exhibition',
+  'furniture',
+  'unbuilt',
+  'etc',
+];
+
 const Content = ({ imgData }) => {
   const state = useSelector((store) => store.nav);
   const dispatch = useDispatch();
+  const [currentCategory, setCurrentCategory] = useState(state.category);
+  const [categoryMenuIsOpen, setCategoryMenuIsOpen] = useState(false);
 
   useEffect(() => {
     dispatch(getActions('PROJECT')());
   }, []);
 
+  const onMenuClick = (e) => {
+    setCategoryMenuIsOpen(!categoryMenuIsOpen);
+  };
+
+  const onMenuClose = (e) => {
+    setCategoryMenuIsOpen(!categoryMenuIsOpen);
+  };
+
+  const selectCategory = (e, category) => {
+    onMenuClose(e);
+    dispatch(setCategory(category));
+    setCurrentCategory(category);
+  };
+
+  // useEffect(() => {
+  //   console.log(currentCategory, state.category);
+  // }, [currentCategory]);
+
   return (
-    <ContainerStyle>
+    <ContainerStyle isOpen={categoryMenuIsOpen}>
+      <Dropdown
+        value={currentCategory}
+        categories={categories}
+        onMenuClick={onMenuClick}
+        isOpen={categoryMenuIsOpen}
+        selectCategory={selectCategory}
+      />
       <ScrollBarWrapper>
         {imgData
-          .filter(
-            (item) =>
-              (state.category === 'all' ||
-                state.category === item.fields.post_type) &&
-              item
-          )
+          .filter((item) => {
+            return (
+              currentCategory === 'all' ||
+              currentCategory === item.fields.post_type
+            );
+          })
           .map((item, index) => {
             return (
               <LinkWrapper

@@ -10,6 +10,8 @@ export function getActions(curr) {
       return navSlice.actions.contact;
     case 'MATTERS':
       return navSlice.actions.matters;
+    case 'CATEGORY':
+      return navSlice.actions.setCategory;
     default:
       return navSlice.actions.landing;
   }

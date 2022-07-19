@@ -6,10 +6,6 @@ import { useLocation } from 'react-router-dom';
 
 const Container = styled.aside`
   width: 100%;
-  //display: flex;
-  //flex-direction: column;
-  //justify-content: flex-start;
-  //align-items: flex-start;
 `;
 
 const MenuList = styled.ul`

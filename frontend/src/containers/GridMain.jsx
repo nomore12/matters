@@ -5,12 +5,16 @@ import { ReactComponent as Logo } from 'static/images/logo.svg';
 import { Navigation, Content, Menu, MenuTitle, MobileNav } from 'components';
 import { About, Contact, Matters, Detail } from 'pages/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { navSlice } from 'feature/navSlice';
+import { navSlice, setCategory } from 'feature/navSlice';
 import { useHistory, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { herokuUrl } from '../constant/urls';
+import { getActions } from '../utils/stateUtils';
+import Home from './Home';
+// import { ReactComponent as Logo } from 'static/images/logo.svg';
+import PngLogo from 'assets/logo192.png';
 
 const Container = styled.div`
   height: 100vh;
@@ -64,6 +68,7 @@ const SecondNav = styled.div`
   width: 64px;
   height: 64px;
   display: none;
+  position: relative;
 
   @media only screen and (max-width: 768px) {
     display: flex;
@@ -92,20 +97,20 @@ const NaveLayer = styled.div`
 
 const HEADER_HEIGHT = 136;
 
-function getActions(curr) {
-  switch (curr) {
-    case 'ABOUT':
-      return navSlice.actions.about;
-    case 'PROJECT':
-      return navSlice.actions.project;
-    case 'CONTACT':
-      return navSlice.actions.contact;
-    case 'MATTERS':
-      return navSlice.actions.matters;
-    default:
-      return navSlice.actions.landing;
-  }
-}
+// function getActions(curr) {
+//   switch (curr) {
+//     case 'ABOUT':
+//       return navSlice.actions.about;
+//     case 'PROJECT':
+//       return navSlice.actions.project;
+//     case 'CONTACT':
+//       return navSlice.actions.contact;
+//     case 'MATTERS':
+//       return navSlice.actions.matters;
+//     default:
+//       return navSlice.actions.landing;
+//   }
+// }
 
 const GridMain = () => {
   const [currentNav, setCurrentNav] = useState('');
@@ -202,21 +207,21 @@ const GridMain = () => {
       </GridBlock>
       <GridBlock hide>
         <MenuTitle
-          title={
-            currentNav === undefined ? '' : currentNav.toUpperCase()
-          }></MenuTitle>
+          title={currentNav === undefined ? '' : currentNav.toUpperCase()}
+        />
       </GridBlock>
       <GridBlock content detail="4px">
         <Switch>
-          <Route path="/main/about" component={About} />
+          {/*<Route path="/main" component={Home} />*/}
+          <Route exact path="/main/about" component={About} />
           <Route
             exact
             path="/main/project"
             component={() => <Content imgData={imageData} />}
           />
-          <Route path="/main/project/:id" component={Detail} />
-          <Route path="/main/contact" component={Contact} />
-          <Route path="/main/matters" component={Matters} />
+          <Route exact path="/main/project/:id" component={Detail} />
+          <Route exact path="/main/contact" component={Contact} />
+          <Route exact path="/main/matters" component={Matters} />
         </Switch>
       </GridBlock>
     </Container>

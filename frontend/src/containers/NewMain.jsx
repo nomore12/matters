@@ -102,8 +102,8 @@ const MobileMenu = styled.div`
   }
 
   #nav-icon3 {
-    width: 40px;
-    height: 32px;
+    width: 28px;
+    height: 20px;
     position: relative;
     margin: 50px auto;
     -webkit-transform: rotate(0deg);
@@ -120,7 +120,7 @@ const MobileMenu = styled.div`
   #nav-icon3 span {
     display: block;
     position: absolute;
-    height: 6px;
+    height: 4px;
     width: 100%;
     background: #000;
     opacity: 1;
@@ -141,11 +141,11 @@ const MobileMenu = styled.div`
 
   #nav-icon3 span:nth-child(2),
   #nav-icon3 span:nth-child(3) {
-    top: 11px;
+    top: 8px;
   }
 
   #nav-icon3 span:nth-child(4) {
-    top: 22px;
+    top: 16px;
   }
 
   #nav-icon3.open span:nth-child(1) {
@@ -317,7 +317,7 @@ const NewMain = () => {
       {/*<MobileTitle>{params.pathname.split('/')[2].toUpperCase()}</MobileTitle>*/}
       {/*<MobileTitle>{state}</MobileTitle>*/}
       {mobileMenuIsOpen && browserWidth <= 768 && (
-        <MobileNav onClose={onClose} width={browserWidth}></MobileNav>
+        <MobileNav onClose={onClose} width={browserWidth} />
       )}
       <div className="content">
         <div className="content-menu">

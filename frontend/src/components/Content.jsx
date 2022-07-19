@@ -141,6 +141,10 @@ const Content = ({ imgData }) => {
     dispatch(getActions('PROJECT')());
   }, []);
 
+  useEffect(() => {
+    setCurrentCategory(state.category);
+  }, [state.category, currentCategory]);
+
   const onMenuClick = (e) => {
     setCategoryMenuIsOpen(!categoryMenuIsOpen);
   };
@@ -154,10 +158,6 @@ const Content = ({ imgData }) => {
     dispatch(setCategory(category));
     setCurrentCategory(category);
   };
-
-  // useEffect(() => {
-  //   console.log(currentCategory, state.category);
-  // }, [currentCategory]);
 
   return (
     <ContainerStyle isOpen={categoryMenuIsOpen}>

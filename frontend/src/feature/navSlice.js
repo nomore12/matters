@@ -27,7 +27,6 @@ export const navSlice = createSlice({
       state.navState = setState(state.navState, state.stateStack, 'MATTERS');
     },
     setCategory: (state, action) => {
-      console.log(action);
       state.category = action.payload;
     },
     setMobile: (state, payload) => {

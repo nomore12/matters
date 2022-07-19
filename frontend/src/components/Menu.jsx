@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { navSlice } from 'feature/navSlice';
 import { useLocation } from 'react-router-dom';
+import { setCategory } from 'feature/navSlice';
 
 const Container = styled.aside`
   width: 100%;
@@ -36,7 +37,7 @@ const MenuButton = styled.button`
   } */
 `;
 
-const Menu = () => {
+const Menu = ({ onSelect }) => {
   const state = useSelector((store) => store.nav);
   const dispatch = useDispatch();
   const [currentMenu, setCurrentMenu] = useState(state.category);
@@ -45,6 +46,7 @@ const Menu = () => {
   const onButtonClick = (curr) => {
     dispatch(navSlice.actions.setCategory(curr));
     setCurrentMenu(curr);
+    onSelect(curr);
   };
 
   return (

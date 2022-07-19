@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from 'static/images/logo.svg';
 import { Navigation, Content, Menu, MenuTitle, MobileNav } from 'components';
 import { About, Contact, Matters, Detail } from 'pages/index';
 import { useDispatch, useSelector } from 'react-redux';
-import { navSlice } from 'feature/navSlice';
+import { navSlice, setCategory } from 'feature/navSlice';
 import { useHistory, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { herokuUrl, localUrl } from '../constant/urls';
@@ -280,6 +280,10 @@ const NewMain = () => {
       mobileMenu.current.classList.remove('open');
   };
 
+  const onSelect = (category) => {
+    dispatch(setCategory(category));
+  };
+
   return (
     <Container className="main">
       <div className="logo">
@@ -314,14 +318,12 @@ const NewMain = () => {
           <span></span>
         </div>
       </MobileMenu>
-      {/*<MobileTitle>{params.pathname.split('/')[2].toUpperCase()}</MobileTitle>*/}
-      {/*<MobileTitle>{state}</MobileTitle>*/}
       {mobileMenuIsOpen && browserWidth <= 768 && (
         <MobileNav onClose={onClose} width={browserWidth} />
       )}
       <div className="content">
         <div className="content-menu">
-          {params.pathname === '/main/project' && <Menu />}
+          {params.pathname === '/main/project' && <Menu onSelect={onSelect} />}
         </div>
         <div className="content-content">
           {params.pathname !== '/main' && (

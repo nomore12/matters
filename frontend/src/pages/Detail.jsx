@@ -9,6 +9,13 @@ import axios from 'axios';
 import { useParams, useRouteMatch, useLocation } from 'react-router-dom';
 import { herokuUrl, localUrl } from '../constant/urls';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/swiper.min.css';
+import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/swiper-bundle.css';
+// import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/swiper/navigation';
+// import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/navigation.min.css';
+import { Navigation } from 'swiper';
+
 const Container = styled(PerfectScrollbar)`
   width: 640px;
   max-height: calc(100% - 128px);
@@ -20,6 +27,20 @@ const Container = styled(PerfectScrollbar)`
   .detail-wrapper {
     padding: 2px;
     width: 100%;
+  }
+
+  .carousel-area {
+    width: 600px;
+    //height: 600px;
+    @media only screen and (max-width: 768px) {
+      width: 100% !important;
+    }
+  }
+
+  .swiper {
+    //@media only screen and (max-width: 768px) {
+    width: 100%;
+    //}
   }
 
   @media only screen and (max-width: 768px) {
@@ -43,6 +64,7 @@ const Container = styled(PerfectScrollbar)`
 const ImageContainer = styled.img`
   box-sizing: border-box;
   width: 100%;
+  height: ${(props) => (props?.height ? props.height : '')};
   //height: 600px;
   object-fit: cover;
 `;
@@ -51,6 +73,7 @@ const DescDetail = styled.p`
   width: 100%;
   white-space: pre-wrap;
   font-weight: 300;
+  display: flex;
 `;
 
 const Title = styled.h1`
@@ -58,58 +81,80 @@ const Title = styled.h1`
   font-size: 16px;
   width: 100%;
   margin-bottom: 0;
-`;
-
-const Box = styled.div`
-  width: 100%;
   display: flex;
-  flex-direction: column;
 `;
 
 const Detail = (props) => {
   const params = useParams();
   const [imgSrc, setImgSrc] = useState();
+  const [detailImages, setDetailImages] = useState();
   const [title, setTitle] = useState();
   const [subTitle, setSubTitle] = useState();
   const [date, setDate] = useState();
-
   const [desc, setDesc] = useState();
 
   useEffect(() => {
-    // console.log('detail', props, params);
-    // const src = location.pathname;
-    // setImgSrc(src.substring(13, src.length));
-
     (async function getImage() {
+      const postDetail = `${localUrl}posts/${params.id}`;
+      const postImages = `${localUrl}posts/images/${params.id}`;
+
+      const requestPost = axios.get(postDetail);
+      const requestImages = axios.get(postImages);
+
       await axios
-        .get(`${localUrl}posts/${params.id}`)
-        .then(function (response) {
-          // 성공 핸들링
-          setImgSrc(response.data[0].fields.main_image);
-          setTitle(response.data[0].fields.title);
-          setSubTitle(response.data[0].fields.sudtitle);
-          setDate(
-            `${response.data[0].fields.from_date}-${response.data[0].fields.to_date}`
-          );
-          setDesc(response.data[0].fields.description.replaceAll('\n', '\n'));
-          console.log(response.data);
-        })
-        .catch(function (error) {
-          // 에러 핸들링
-          // console.log('detail response error', error);
-        })
-        .then(function () {
-          // 항상 실행되는 영역
-        });
+        .all([requestPost, requestImages])
+        .then(
+          axios.spread((...response) => {
+            const detailData = response[0].data[0].fields;
+            const detailImages = response[1].data.map(
+              (item) => item.fields.image
+            );
+            setDetailImages(detailImages);
+            setTitle(detailData.title);
+            setSubTitle(detailData.sudtitle);
+            setDate(
+              `${detailData.from_date.slice(0, 7)} ~ ${detailData.to_date.slice(
+                0,
+                7
+              )}`
+            );
+            setImgSrc(detailImages[0]);
+            setDesc(detailData.description.replaceAll('\n', '\n'));
+          })
+        )
+        .catch((error) => console.log(error));
     })();
-    // getImage();
   }, []);
 
   return (
     <Container>
-      <ImageContainer src={`${localUrl}media/${imgSrc}`} />
-      <Title>{`| ${title} | ${subTitle} | ${date}`}</Title>
-      <DescDetail>{desc}</DescDetail>
+      <div className="carousel-area">
+        <Swiper
+          spaceBetween={50}
+          slidesPerView={1}
+          onSlideChange={() => console.log('slide change')}
+          onSwiper={(swiper) => console.log(swiper)}
+          scollbar={{ draggable: true }}
+          zoom={false}
+          navigation={true}
+          modules={[Navigation]}>
+          {detailImages &&
+            detailImages.map((item, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <ImageContainer
+                    src={`${localUrl}media/${item}`}
+                    height={'600px'}
+                  />
+                </SwiperSlide>
+              );
+            })}
+        </Swiper>
+      </div>
+      <div className="info-area">
+        <Title>{`| ${title} | ${subTitle} | ${date}`}</Title>
+        <DescDetail>{desc}</DescDetail>
+      </div>
     </Container>
   );
 };

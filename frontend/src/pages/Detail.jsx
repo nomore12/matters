@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { ImageList, ImageListItem } from '@mui/material';
-import { useSelector, useDispatch } from 'react-redux';
-import { navSlice } from 'feature/navSlice';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-import { useParams, useRouteMatch, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { herokuUrl, localUrl } from '../constant/urls';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/swiper.min.css';
-import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/swiper-bundle.css';
-// import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/swiper/navigation';
-// import '/Users/noseongho/Documents/projects/alba/matters/frontend/node_modules/swiper/navigation.min.css';
-import { Navigation } from 'swiper';
+import '../../node_modules/swiper/swiper.min.css';
+import '../../node_modules/swiper/swiper-bundle.css';
+import { Navigation, Lazy, Zoom } from 'swiper';
 
 const Container = styled(PerfectScrollbar)`
   width: 640px;
-  max-height: calc(100% - 128px);
+  //max-height: calc(100% - 128px);
+  max-height: 680px;
   display: flex;
   flex-direction: column;
   padding-left: 40px;
@@ -31,23 +27,26 @@ const Container = styled(PerfectScrollbar)`
 
   .carousel-area {
     width: 600px;
-    //height: 600px;
     @media only screen and (max-width: 768px) {
       width: 100% !important;
     }
   }
 
   .swiper {
-    //@media only screen and (max-width: 768px) {
-    width: 100%;
-    //}
+    height: 100%;
+  }
+
+  .swiper-slide {
+    height: 600px;
+    @media only screen and (max-width: 768px) {
+      height: 100%;
+    }
   }
 
   @media only screen and (max-width: 768px) {
     padding: 0;
     align-items: flex-start;
     margin-top: 36px;
-    //margin-top: 36px;
     width: 100%;
   }
 
@@ -59,14 +58,18 @@ const Container = styled(PerfectScrollbar)`
     padding: 0;
     align-items: flex-start;
   }
+
+  img {
+    object-fit: scale-down;
+  }
 `;
 
 const ImageContainer = styled.img`
   box-sizing: border-box;
-  width: 100%;
-  height: ${(props) => (props?.height ? props.height : '')};
+  // width: 100%;
+  // height: ${(props) => (props?.height ? props.height : '')};
   //height: 600px;
-  object-fit: cover;
+  //object-fit: scale-down;
 `;
 
 const DescDetail = styled.p`
@@ -135,17 +138,17 @@ const Detail = (props) => {
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
           scollbar={{ draggable: true }}
-          zoom={false}
+          zoom={true}
           navigation={true}
-          modules={[Navigation]}>
+          lazy={true}
+          modules={[Navigation, Lazy, Zoom]}>
           {detailImages &&
             detailImages.map((item, index) => {
               return (
                 <SwiperSlide key={index}>
-                  <ImageContainer
-                    src={`${localUrl}media/${item}`}
-                    height={'600px'}
-                  />
+                  <div className="swiper-zoom-container">
+                    <ImageContainer src={`${localUrl}media/${item}`} />
+                  </div>
                 </SwiperSlide>
               );
             })}

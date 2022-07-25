@@ -43,6 +43,7 @@ const IT = styled.div`
   font-weight: 800;
   animation: 3s ${fadeIn} ease-out;
   margin-right: 1rem;
+  color: #3f3f3f;
 `;
 
 const MattersWrapper = styled.div`

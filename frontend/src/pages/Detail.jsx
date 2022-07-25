@@ -6,10 +6,11 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { herokuUrl, localUrl } from '../constant/urls';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import '../../node_modules/swiper/swiper.min.css';
-import '../../node_modules/swiper/swiper-bundle.css';
 import { Navigation, Lazy, Zoom } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
+import 'swiper/swiper.min.css'; // core Swiper
+import 'swiper/modules/navigation/navigation.min.css'; // Navigation module
+import 'swiper/modules/pagination/pagination.min.css'; // Pagination module
 
 const Container = styled(PerfectScrollbar)`
   width: 640px;
@@ -61,6 +62,22 @@ const Container = styled(PerfectScrollbar)`
 
   img {
     object-fit: scale-down;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+    width: 100%;
+    margin-bottom: 0;
+    display: flex;
+  }
+
+  .subtitle {
+    font-weight: 400;
+    font-size: 16px;
+    width: 100%;
+    margin-bottom: 0;
+    display: flex;
   }
 `;
 
@@ -155,7 +172,9 @@ const Detail = (props) => {
         </Swiper>
       </div>
       <div className="info-area">
-        <Title>{`| ${title} | ${subTitle} | ${date}`}</Title>
+        <p className="title">{`| ${title} |`}</p>
+        <p className="subtitle">{`| ${subTitle} | ${date}`}</p>
+        {/*<Title>{`| ${title} | ${subTitle} | ${date}`}</Title>*/}
         <DescDetail>{desc}</DescDetail>
       </div>
     </Container>

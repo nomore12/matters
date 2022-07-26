@@ -117,6 +117,7 @@ const ItemTitle = styled.p`
   height: 8px;
   position: absolute;
   bottom: 0;
+  color: black;
 `;
 
 const categories = [
@@ -196,7 +197,6 @@ const Content = ({ imgData }) => {
                   />
                   <ItemTitle>{item.fields.title}</ItemTitle>
                 </ItemWrapper>
-                {/* </ImgWrapper> */}
               </LinkWrapper>
             );
           })}

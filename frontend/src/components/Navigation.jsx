@@ -30,10 +30,6 @@ const NaveWrapper = styled.div`
     margin-top: 24px;
     width: 100%;
   }
-
-  //@media only screen and (max-width: 769px) {
-  //  //display: none;
-  //}
 `;
 
 const blinker = ({ start, mid, end }) => keyframes`
@@ -50,6 +46,8 @@ const blinker = ({ start, mid, end }) => keyframes`
 `;
 
 const LinkWapper = styled(Link)`
+  color: black;
+
   &:visited {
     color: '#ffffff';
   }

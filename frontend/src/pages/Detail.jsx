@@ -97,8 +97,17 @@ const DescDetail = styled.p`
 `;
 
 const Title = styled.h1`
-  font-weight: 400;
+  font-weight: 500;
   font-size: 16px;
+  width: 100%;
+  margin-top: 22px;
+  margin-bottom: 0;
+  display: flex;
+`;
+
+const SubTitle = styled.h2`
+  font-weight: 400;
+  font-size: 14px;
   width: 100%;
   margin-bottom: 0;
   display: flex;
@@ -112,6 +121,7 @@ const Detail = (props) => {
   const [subTitle, setSubTitle] = useState();
   const [date, setDate] = useState();
   const [desc, setDesc] = useState();
+  const [location, setLocation] = useState();
 
   useEffect(() => {
     (async function getImage() {
@@ -140,6 +150,7 @@ const Detail = (props) => {
             );
             setImgSrc(detailImages[0]);
             setDesc(detailData.description.replaceAll('\n', '\n'));
+            setLocation(detailData.location);
           })
         )
         .catch((error) => console.log(error));
@@ -154,6 +165,7 @@ const Detail = (props) => {
           slidesPerView={1}
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
+          allowHeight={true}
           scollbar={{ draggable: true }}
           zoom={true}
           navigation={true}

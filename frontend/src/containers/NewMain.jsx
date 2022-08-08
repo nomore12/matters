@@ -53,7 +53,7 @@ const Container = styled.div`
     height: 100%;
     justify-content: space-between;
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 768px) {
       margin-top: 24px;
     }
   }
@@ -61,7 +61,7 @@ const Container = styled.div`
   .content-menu {
     padding: 2rem 0;
 
-    @media only screen and (max-width: 1024px) {
+    @media only screen and (max-width: 768px) {
       display: none;
     }
   }
@@ -96,8 +96,8 @@ const MobileMenu = styled.div`
   @media only screen and (max-width: 768px) {
     display: block;
     position: absolute;
-    right: 30px;
-    top: -20px;
+    right: 24px;
+    top: -25px;
     z-index: 5;
   }
 
@@ -137,15 +137,18 @@ const MobileMenu = styled.div`
 
   #nav-icon3 span:nth-child(1) {
     top: 0px;
+    background-color: #414141;
   }
 
   #nav-icon3 span:nth-child(2),
   #nav-icon3 span:nth-child(3) {
     top: 8px;
+    background-color: #414141;
   }
 
   #nav-icon3 span:nth-child(4) {
     top: 16px;
+    background-color: #414141;
   }
 
   #nav-icon3.open span:nth-child(1) {

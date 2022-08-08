@@ -71,7 +71,7 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
     width: 100%;
     padding: 0 6px;
     grid-gap: 1rem;
-    margin-top: 14px;
+    margin-top: 20px;
   }
 `;
 

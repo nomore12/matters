@@ -21,6 +21,8 @@ const ContainerStyle = styled.div`
     }
 
     .dropdown-display {
+      position: absolute;
+      left: 0;
       height: 28px;
       width: 100%;
       //border: 1px solid green;

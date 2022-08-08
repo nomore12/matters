@@ -43,6 +43,7 @@ const ContainerStyle = styled.div`
   width: 640px;
   height: calc(100% - 108px);
   display: block;
+  position: relative;
   //border: 1px solid red;
 
   @media only screen and (max-width: 768px) {
@@ -70,6 +71,7 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
     width: 100%;
     padding: 0 6px;
     grid-gap: 1rem;
+    margin-top: 14px;
   }
 `;
 

@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import styled from 'styled-components';
 
 const ContainerStyle = styled.div`
+  position: relative;
+
   .dropdown {
     display: none;
   }
@@ -12,6 +14,7 @@ const ContainerStyle = styled.div`
       flex-direction: column;
       justify-content: flex-start;
       padding-left: 8px;
+      width: 100%;
       height: 28px;
       margin-top: -20px;
       margin-bottom: 6px;
@@ -19,27 +22,49 @@ const ContainerStyle = styled.div`
 
     .dropdown-display {
       height: 28px;
-      width: 128px;
-      border: 1px solid green;
+      width: 100%;
+      //border: 1px solid green;
       padding: 4px 8px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-radius: 5px 5px 0 0;
+      justify-content: center;
+      border-radius: 5px;
+      //background-color: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 0, 0, 0.2);
+
+      & p {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
 
     .dropdown-menu {
+      position: absolute;
+      left: -24px;
+      top: -2px;
       padding: 8px 0 8px 8px;
-      z-index: 2;
+      z-index: 3;
       display: ${(props) => (props.isOpen ? 'flex' : 'none')};
       flex-direction: column;
+      align-items: center;
       gap: 4px;
-      background-color: white;
-      width: 128px;
-      border: 1px solid black;
+      width: 100vw;
+      height: 100vh;
+      background: #fff;
+      opacity: 0.9;
+      //border: 1px solid black;
       border-radius: 0 0 5px 5px;
 
       .dropdown-menu__btn {
+        font-size: 18px;
+        height: 48px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+
         &:hover {
           background-color: red;
         }

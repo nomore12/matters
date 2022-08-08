@@ -6,14 +6,14 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { herokuUrl, localUrl } from '../constant/urls';
 
-import { Navigation, Lazy, Zoom } from 'swiper';
+import { Navigation, Lazy, Zoom, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
 import 'swiper/swiper.min.css'; // core Swiper
 import 'swiper/modules/navigation/navigation.min.css'; // Navigation module
 import 'swiper/modules/pagination/pagination.min.css'; // Pagination module
 
 const Container = styled(PerfectScrollbar)`
-  width: 640px;
+  width: 720px;
   //max-height: calc(100% - 128px);
   max-height: 680px;
   display: flex;
@@ -27,7 +27,7 @@ const Container = styled(PerfectScrollbar)`
   }
 
   .carousel-area {
-    width: 600px;
+    width: 680px;
     @media only screen and (max-width: 768px) {
       width: 100% !important;
     }
@@ -38,10 +38,14 @@ const Container = styled(PerfectScrollbar)`
   }
 
   .swiper-slide {
-    height: 600px;
+    height: 680px;
     @media only screen and (max-width: 768px) {
       height: 100%;
     }
+  }
+
+  .swiper-zoom-container {
+    width: 100%;
   }
 
   @media only screen and (max-width: 768px) {
@@ -83,7 +87,7 @@ const Container = styled(PerfectScrollbar)`
 
 const ImageContainer = styled.img`
   box-sizing: border-box;
-  // width: 100%;
+  //width: 100%;
   // height: ${(props) => (props?.height ? props.height : '')};
   //height: 600px;
   //object-fit: scale-down;
@@ -161,8 +165,8 @@ const Detail = (props) => {
     <Container>
       <div className="carousel-area">
         <Swiper
-          spaceBetween={50}
-          slidesPerView={1}
+          spaceBetween={30}
+          slidesPerView={'auto'}
           onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
           allowHeight={true}
@@ -170,7 +174,8 @@ const Detail = (props) => {
           zoom={true}
           navigation={true}
           lazy={true}
-          modules={[Navigation, Lazy, Zoom]}>
+          pagenation={{ type: 'fraction' }}
+          modules={[Navigation, Lazy, Zoom, Pagination]}>
           {detailImages &&
             detailImages.map((item, index) => {
               return (

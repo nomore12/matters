@@ -40,7 +40,7 @@ const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
 }));
 
 const ContainerStyle = styled.div`
-  width: 640px;
+  width: 720px;
   height: calc(100% - 108px);
   display: block;
   position: relative;

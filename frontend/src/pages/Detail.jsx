@@ -167,15 +167,15 @@ const Detail = (props) => {
         <Swiper
           spaceBetween={30}
           slidesPerView={'auto'}
-          onSlideChange={() => console.log('slide change')}
+          // onSlideChange={() => console.log('slide change')}
           onSwiper={(swiper) => console.log(swiper)}
-          allowHeight={true}
+          // allowHeight={true}
           scollbar={{ draggable: true }}
           zoom={true}
           navigation={true}
           lazy={true}
-          pagenation={{ type: 'fraction' }}
-          modules={[Navigation, Lazy, Zoom, Pagination]}>
+          // pagenation={{ type: 'fraction' }}
+          modules={[Navigation, Lazy, Zoom]}>
           {detailImages &&
             detailImages.map((item, index) => {
               return (

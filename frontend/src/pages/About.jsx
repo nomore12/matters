@@ -6,7 +6,7 @@ import { setCategory } from '../feature/navSlice';
 
 const Container = styled.div`
   display: flex;
-  width: 640px;
+  width: 720px;
   height: 100%;
   align-content: flex-start;
   gap: 10px;

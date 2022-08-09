@@ -6,7 +6,7 @@ import { getActions } from '../utils/stateUtils';
 import { setCategory } from '../feature/navSlice';
 
 const Container = styled.div`
-  width: 640px;
+  width: 720px;
   flex-direction: column;
   height: 100%;
   display: flex;

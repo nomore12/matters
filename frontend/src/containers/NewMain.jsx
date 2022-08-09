@@ -23,6 +23,20 @@ const Container = styled.div`
     //justify-content: center;
   }
 
+  .mobile-main {
+    display: none;
+    width: 100%;
+    height: 100%;
+
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: -20px;
+      margin-left: 18px;
+    }
+  }
+
   .header {
     display: flex;
     justify-content: flex-end;
@@ -335,6 +349,9 @@ const NewMain = () => {
             </div>
           )}
           <div className="content-area">
+            <div className="mobile-main">
+              <LogoComp />
+            </div>
             <Switch>
               <Route path="/main/about" component={About} />
               exact

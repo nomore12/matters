@@ -66,9 +66,11 @@ const ContainerStyle = styled.div`
         width: 100%;
         display: flex;
         justify-content: center;
+        align-items: center;
 
         &:hover {
-          background-color: red;
+          background-color: rgba(0.1, 0.1, 0.1, 0.1);
+          border-radius: 5px;
         }
       }
     }

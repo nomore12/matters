@@ -281,10 +281,6 @@ const NewMain = () => {
 
   useEffect(() => {
     return history.listen((location) => {
-      // console.log(location);
-      // if (location.pathname === '/main') {
-      //   dispatch('');
-      // } else
       if (history.action === 'POP') {
         dispatch(getActions(state)());
       }
@@ -349,9 +345,11 @@ const NewMain = () => {
             </div>
           )}
           <div className="content-area">
-            <div className="mobile-main">
-              <LogoComp />
-            </div>
+            {params.pathname === '/main' && (
+              <div className="mobile-main">
+                <LogoComp />
+              </div>
+            )}
             <Switch>
               <Route path="/main/about" component={About} />
               exact

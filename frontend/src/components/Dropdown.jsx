@@ -1,5 +1,17 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+
+const mobileCategories = [
+  'project type',
+  'residential',
+  'office',
+  'commercial',
+  'hospitality',
+  'exhibition',
+  'furniture',
+  'unbuilt',
+  'etc',
+];
 
 const ContainerStyle = styled.div`
   position: relative;
@@ -32,7 +44,7 @@ const ContainerStyle = styled.div`
       justify-content: center;
       border-radius: 5px;
       //background-color: rgba(0, 0, 0, 0.5);
-      border: 1px solid rgba(0, 0, 0, 0.2);
+      //border: 1px solid rgba(0, 0, 0, 0.2);
 
       & p {
         margin-top: 20px;
@@ -87,12 +99,18 @@ const Dropdown = ({
   selectCategory,
 }) => {
   const ref = useRef(null);
+  // const [mobileCategory, setMobileCategory] = useState([]);
+  //
+  // useEffect(() => {
+  //   const cate = categories.replaceAll('all', 'project type');
+  //   setMobileCategory(cate);
+  // }, []);
 
   return (
     <ContainerStyle isOpen={isOpen} onClick={(e) => e.stopPropagation()}>
       <div className="dropdown">
         <div className="dropdown-display" onClick={onMenuClick}>
-          <p>{value}</p>
+          <p>{value === 'all' ? 'project type' : value}</p>
         </div>
         <div ref={ref} className="dropdown-menu">
           {categories &&

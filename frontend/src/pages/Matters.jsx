@@ -41,9 +41,10 @@ const fadeIn = keyframes`
 const IT = styled.div`
   font-size: 2rem;
   font-weight: 800;
-  animation: 3s ${fadeIn} ease-out;
+  animation: 2s ${fadeIn} ease-out;
   margin-right: 1rem;
   color: #414141;
+  font-family: 'NotoSansKR' !important;
 `;
 
 const MattersWrapper = styled.div`
@@ -75,8 +76,8 @@ function Matters() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setInterval(() => setMatters(true), 3000);
-    setInterval(() => setNow(true), 4000);
+    setInterval(() => setMatters(true), 1700);
+    setInterval(() => setNow(true), 2400);
     dispatch(getActions('ABOUT')());
     dispatch(setCategory('all'));
   }, []);

@@ -66,6 +66,8 @@ const Container = styled.div`
     width: 100%;
     height: 100%;
     justify-content: space-between;
+    position: relative;
+    padding-top: 24px;
 
     @media only screen and (max-width: 768px) {
       margin-top: 24px;
@@ -98,6 +100,22 @@ const Container = styled.div`
   .logo {
     @media only screen and (max-width: 768px) {
       display: none;
+    }
+  }
+
+  .mobile-nav-name {
+    display: none;
+
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 2rem;
+      position: absolute;
+      top: 20px;
+      font-size: 18px;
+      font-weight: 600;
     }
   }
 `;
@@ -335,6 +353,11 @@ const NewMain = () => {
         <MobileNav onClose={onClose} width={browserWidth} />
       )}
       <div className="content">
+        <div className="mobile-nav-name">
+          {params.pathname !== '/main' && (
+            <div>{params.pathname.split('/')[2].toUpperCase()}</div>
+          )}
+        </div>
         <div className="content-menu">
           {params.pathname === '/main/project' && <Menu onSelect={onSelect} />}
         </div>

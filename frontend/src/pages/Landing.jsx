@@ -21,7 +21,8 @@ const LogoComp = styled(Logo)`
   margin-left: 80px;
 
   @media only screen and (max-width: 768px) {
-    padding-left: 24px;
+    margin-left: 20px;
+    //padding-left: 24px;
   }
 `;
 

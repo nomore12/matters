@@ -50,7 +50,7 @@ const ContainerStyle = styled.div`
     justify-content: center;
     width: 100%;
     height: calc(100% - 72px);
-    margin-top: 36px;
+    margin-top: 60px;
   }
 `;
 

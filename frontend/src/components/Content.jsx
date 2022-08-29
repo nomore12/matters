@@ -17,6 +17,7 @@ import { styled as muiStyled } from '@mui/material/styles';
 import { InputBase } from '@mui/material';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import axios from 'axios';
 
 const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -72,6 +73,7 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
     padding: 0 6px;
     grid-gap: 1rem;
     margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, 100%);
   }
 `;
 
@@ -92,8 +94,8 @@ const LinkWrapper = styled(Link)`
 
 const ImageItem = styled.img`
   box-sizing: border-box;
-  width: 164px;
-  height: 164px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
@@ -113,6 +115,10 @@ const ItemWrapper = styled.div`
   height: 204px;
   width: 164px;
   position: relative;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ItemTitle = styled.p`
@@ -139,6 +145,19 @@ const Content = ({ imgData }) => {
   const dispatch = useDispatch();
   const [currentCategory, setCurrentCategory] = useState(state.category);
   const [categoryMenuIsOpen, setCategoryMenuIsOpen] = useState(false);
+  const ref = useRef(null);
+  //
+  // const handleResize = () => {
+  //   setBrowserWidth(window.innerWidth);
+  // };
+  //
+  // useEffect(() => {
+  //   window.addEventListener('resize', handleResize);
+  //   console.log(browserWidth);
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, [browserWidth]);
 
   useEffect(() => {
     dispatch(getActions('PROJECT')());

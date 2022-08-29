@@ -270,6 +270,7 @@ const NewMain = () => {
           // 성공 핸들링
           // console.log('response', response);
           setImageData(response.data);
+          console.log(response.data);
         })
         .catch((error) => {
           // 에러 핸들링

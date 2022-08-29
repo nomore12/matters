@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActions } from '../utils/stateUtils';
 import { setCategory } from '../feature/navSlice';
+import bigmap from '../static/images/big-map.png';
 
 const Container = styled.div`
   width: 720px;
@@ -41,7 +42,7 @@ const Matters = styled.div`
 `;
 
 const Map = styled.div`
-  margin-top: 40px;
+  //margin-top: 40px;
 `;
 
 function Contact() {
@@ -53,6 +54,7 @@ function Contact() {
     dispatch(getActions('CONTACT')());
     dispatch(setCategory('all'));
   }, []);
+
   return (
     <Container>
       <div>
@@ -67,7 +69,7 @@ function Contact() {
       </div>
       <div>
         <Map>
-          <img src={'/images/map.png'} width={isMobile ? '100%' : '560px'} />
+          <img src={bigmap} width={isMobile ? '100%' : '560px'} />
         </Map>
       </div>
     </Container>

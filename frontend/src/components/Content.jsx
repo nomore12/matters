@@ -94,8 +94,8 @@ const LinkWrapper = styled(Link)`
 
 const ImageItem = styled.img`
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
+  width: 164px;
+  height: 164px;
   object-fit: contain;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);

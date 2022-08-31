@@ -40,6 +40,7 @@ const NaveWrapper = styled.div`
     margin: 10px 0;
     font-size: 1.2rem;
     font-weight: 500;
+    color: black;
   }
 `;
 

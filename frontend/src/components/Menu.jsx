@@ -30,6 +30,7 @@ const MenuButton = styled.button`
   font-size: 13px;
   font-weight: 300;
   text-shadow: ${(props) => props.textShadow};
+  color: black;
 
   &:hover {
     text-shadow: 0px 1px 7px rgba(0, 0, 0, 0.22);

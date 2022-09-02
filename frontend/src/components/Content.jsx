@@ -45,6 +45,7 @@ const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
 
 const ContainerStyle = styled.div`
   //width: 720px;
+  width: 100%;
   height: 100%;
   display: block;
   position: relative;
@@ -79,16 +80,17 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
   justify-content: space-between;
   padding-bottom: 24px;
   overflow-y: auto;
-  //padding-right: 12px;
-  //border: 1px solid blue;
+
+  @media only screen and (max-width: 1024px) {
+    width: 400px;
+  }
 
   @media only screen and (max-width: 768px) {
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
     padding: 0 6px;
     grid-gap: 1rem;
     margin-top: 20px;
-    //grid-template-columns: repeat(auto-fill, 100%);
   }
 `;
 
@@ -112,7 +114,7 @@ const ImageItem = styled.img`
   box-sizing: border-box;
   width: 164px;
   height: 164px;
-  object-fit: contain;
+  object-fit: cover;
   -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
 

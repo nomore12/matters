@@ -18,6 +18,9 @@ import { InputBase } from '@mui/material';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import axios from 'axios';
+import SimpleBar from 'simplebar-react';
+import 'simplebar-react/dist/simplebar.min.css';
+import CustomScroll from 'react-custom-scroll';
 
 const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -41,30 +44,42 @@ const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
 }));
 
 const ContainerStyle = styled.div`
-  width: 720px;
-  height: calc(100% - 108px);
+  //width: 720px;
+  height: 100%;
   display: block;
   position: relative;
-  //border: 1px solid red;
 
   @media only screen and (max-width: 768px) {
     justify-content: center;
     width: 100%;
-    height: calc(100% - 72px);
+    height: 100%;
     margin-top: 60px;
   }
+
+  //.scroll-bar {
+  //  //height: calc(100% - 64px);
+  //  height: 100%;
+  //  border: 1px solid black;
+  //  display: flex;
+  //  flex-wrap: wrap;
+  //  gap: 160px;
+  //  overflow-y: auto;
+  //}
 `;
 
 const ScrollBarWrapper = styled(PerfectScrollbar)`
-  width: 640px;
+  //width: 640px;
+  width: 600px;
+  //height: 100%;
   //height: calc(100% - 10px);
   display: grid;
   grid-template-columns: repeat(auto-fill, 164px);
   grid-template-rows: repeat(auto-fill, 204px);
   grid-gap: 2rem;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-bottom: 24px;
-  padding-right: 12px;
+  overflow-y: auto;
+  //padding-right: 12px;
   //border: 1px solid blue;
 
   @media only screen and (max-width: 768px) {
@@ -73,7 +88,7 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
     padding: 0 6px;
     grid-gap: 1rem;
     margin-top: 20px;
-    grid-template-columns: repeat(auto-fill, 100%);
+    //grid-template-columns: repeat(auto-fill, 100%);
   }
 `;
 
@@ -88,9 +103,10 @@ const GrayscaleTransition = keyframes`
   }
 `;
 
-const LinkWrapper = styled(Link)`
-  //height: 164px !important;
-`;
+// const LinkWrapper = styled(Link)`
+//   width: 200px;
+//   //height: 164px !important;
+// `;
 
 const ImageItem = styled.img`
   box-sizing: border-box;
@@ -107,6 +123,10 @@ const ImageItem = styled.img`
   }
 `;
 
+const LinkWrapper = styled(Link)`
+  //width: ;
+`;
+
 const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -114,6 +134,7 @@ const ItemWrapper = styled.div`
   align-items: center;
   height: 204px;
   width: 164px;
+  //width: 100%;
   position: relative;
 
   @media only screen and (max-width: 768px) {
@@ -146,6 +167,7 @@ const Content = ({ imgData }) => {
   const [currentCategory, setCurrentCategory] = useState(state.category);
   const [categoryMenuIsOpen, setCategoryMenuIsOpen] = useState(false);
   const ref = useRef(null);
+  const [contentData, setContentData] = useState([]);
   //
   // const handleResize = () => {
   //   setBrowserWidth(window.innerWidth);
@@ -161,6 +183,8 @@ const Content = ({ imgData }) => {
 
   useEffect(() => {
     dispatch(getActions('PROJECT')());
+    // const data = imgData.sort((prev, next) => prev.pk > next.pk);
+    // setContentData(data);
   }, []);
 
   useEffect(() => {
@@ -220,7 +244,8 @@ const Content = ({ imgData }) => {
                 </ItemWrapper>
               </LinkWrapper>
             );
-          })}
+          })
+          .sort((prev, next) => (prev > next ? 1 : -1))}
       </ScrollBarWrapper>
     </ContainerStyle>
   );

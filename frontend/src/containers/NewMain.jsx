@@ -11,7 +11,7 @@ import axios from 'axios';
 import { herokuUrl, localUrl } from '../constant/urls';
 
 const Container = styled.div`
-  height: 100vh;
+  height: calc(100vh - 128px);
   display: flex;
   flex-direction: column;
   padding: 64px 64px 0 64px;
@@ -56,6 +56,10 @@ const Container = styled.div`
     }
   }
 
+  .project-menu {
+    display: flex;
+  }
+
   .navigation {
     display: flex;
     justify-content: flex-end;
@@ -65,7 +69,7 @@ const Container = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
-    justify-content: space-between;
+    justify-content: flex-end;
     position: relative;
     padding-top: 24px;
 
@@ -75,7 +79,7 @@ const Container = styled.div`
   }
 
   .content-menu {
-    padding: 2rem 0;
+    //padding: 2rem 0;
 
     @media only screen and (max-width: 768px) {
       display: none;
@@ -270,7 +274,6 @@ const NewMain = () => {
           // 성공 핸들링
           // console.log('response', response);
           setImageData(response.data);
-          console.log(response.data);
         })
         .catch((error) => {
           // 에러 핸들링
@@ -359,13 +362,20 @@ const NewMain = () => {
             <div>{params.pathname.split('/')[2].toUpperCase()}</div>
           )}
         </div>
-        <div className="content-menu">
-          {params.pathname === '/main/project' && <Menu onSelect={onSelect} />}
-        </div>
+        {/*<div className="content-menu">*/}
+        {/*  /!*{params.pathname === '/main/project' && <Menu onSelect={onSelect} />}*!/*/}
+        {/*</div>*/}
         <div className="content-content">
           {params.pathname !== '/main' && (
-            <div className="title">
-              {params.pathname.split('/')[2].toUpperCase()}
+            <div className="project-menu">
+              <div className="title">
+                {params.pathname.split('/')[2].toUpperCase()}
+              </div>
+              {params.pathname === '/main/project' && (
+                <div className="content-menu">
+                  <Menu onSelect={onSelect} />
+                </div>
+              )}
             </div>
           )}
           <div className="content-area">

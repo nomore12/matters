@@ -11,6 +11,9 @@ const Container = styled.aside`
 
 const MenuList = styled.ul`
   padding: 0;
+  //margin-top: 0;
+  //margin-left: 36px;
+  margin: 0 60px 0 36px;
 
   & > li {
     margin-bottom: 1rem;

@@ -105,11 +105,6 @@ const GrayscaleTransition = keyframes`
   }
 `;
 
-// const LinkWrapper = styled(Link)`
-//   width: 200px;
-//   //height: 164px !important;
-// `;
-
 const ImageItem = styled.img`
   box-sizing: border-box;
   width: 164px;

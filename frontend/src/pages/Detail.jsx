@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
@@ -12,85 +12,43 @@ import 'swiper/swiper.min.css'; // core Swiper
 import 'swiper/modules/navigation/navigation.min.css'; // Navigation module
 import 'swiper/modules/pagination/pagination.min.css'; // Pagination module
 
-const Container = styled(PerfectScrollbar)`
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+
+const ContainerStyle = styled.div`
   width: 720px;
-  //max-height: calc(100% - 128px);
   max-height: 680px;
   display: flex;
   flex-direction: column;
-  padding-left: 40px;
   line-height: 1.1em;
 
-  .detail-wrapper {
-    padding: 2px;
+  .alice-carousel {
+    position: relative;
+  }
+
+  .alice-carousel__dots {
+    display: none;
+  }
+
+  .alice-carousel__stage-item {
     width: 100%;
   }
 
-  .carousel-area {
-    width: 680px;
-    @media only screen and (max-width: 768px) {
-      width: 100% !important;
+  .alice-carousel__prev-btn,
+  .alice-carousel__next-btn {
+    width: 20px;
+    position: absolute;
+    top: 180px;
+
+    & * span {
+      color: white;
+      font-size: 2rem;
     }
   }
 
-  .swiper {
-    height: 100%;
+  .alice-carousel__next-btn {
+    right: 15px;
   }
-
-  .swiper-slide {
-    height: 680px;
-    @media only screen and (max-width: 768px) {
-      height: 100%;
-    }
-  }
-
-  .swiper-zoom-container {
-    width: 100%;
-  }
-
-  @media only screen and (max-width: 768px) {
-    padding: 0;
-    align-items: flex-start;
-    margin-top: 36px;
-    width: 100%;
-  }
-
-  & h4 {
-    margin: 0px;
-  }
-
-  @media only screen and (max-width: 768px) {
-    padding: 0;
-    align-items: flex-start;
-  }
-
-  img {
-    object-fit: scale-down;
-  }
-
-  .title {
-    font-weight: 500;
-    font-size: 18px;
-    width: 100%;
-    margin-bottom: 0;
-    display: flex;
-  }
-
-  .subtitle {
-    font-weight: 400;
-    font-size: 16px;
-    width: 100%;
-    margin-bottom: 0;
-    display: flex;
-  }
-`;
-
-const ImageContainer = styled.img`
-  box-sizing: border-box;
-  //width: 100%;
-  // height: ${(props) => (props?.height ? props.height : '')};
-  //height: 600px;
-  //object-fit: scale-down;
 `;
 
 const DescDetail = styled.p`
@@ -117,15 +75,76 @@ const SubTitle = styled.h2`
   display: flex;
 `;
 
+const handleDragStart = (e) => e.preventDefault();
+
+const SlideItemStyle = styled.img`
+  width: auto;
+  object-fit: contain;
+  max-height: 540px;
+  padding: 0 5px;
+`;
+
+const LazyLoader = (props) => {
+  let timerId;
+  const { src = '', delay = 0, onLoad } = props;
+  const [isMounted, setMounted] = useState(false);
+  const [isLoading, setLoading] = useState(true);
+
+  function loadImage() {
+    const image = new Image();
+
+    image.src = src;
+    image.onload = () => {
+      setLoading(false);
+      onLoad();
+    };
+    image.onerror = () => {
+      setLoading(false);
+    };
+  }
+
+  const [imgSrc, setImgSrc] = useState();
+  const ref = useRef(null);
+
+  useEffect(() => {
+    setImgSrc(props.src);
+    // console.log(ref.current.width);
+    if (!isMounted) {
+      setMounted(true);
+      delay ? (timerId = setTimeout(loadImage, delay)) : loadImage();
+    }
+    return () => clearTimeout(timerId);
+  }, []);
+
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : (
+    <SlideItemStyle
+      ref={ref}
+      className="slide-image"
+      src={imgSrc}
+      onDragStart={handleDragStart}
+      role="presentation"
+      alt="slide-image"
+    />
+  );
+};
+
 const Detail = (props) => {
   const params = useParams();
   const [imgSrc, setImgSrc] = useState();
-  const [detailImages, setDetailImages] = useState();
+  const [detailImages, setDetailImages] = useState([]);
   const [title, setTitle] = useState();
   const [subTitle, setSubTitle] = useState();
   const [date, setDate] = useState();
   const [desc, setDesc] = useState();
   const [location, setLocation] = useState();
+
+  // lazy loading
+  const [, setTimestamp] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const onLoad = () => setTimestamp(Date.now());
+  const onSlideChanged = ({ item }) => setActiveIndex(item);
 
   useEffect(() => {
     (async function getImage() {
@@ -161,40 +180,34 @@ const Detail = (props) => {
     })();
   }, []);
 
+  const slideItems = detailImages.map((item, index) => {
+    return (
+      <LazyLoader
+        src={`${localUrl}media/${item}`}
+        key={index}
+        onLoad={onLoad}
+      />
+    );
+  });
+
   return (
-    <Container>
-      <div className="carousel-area">
-        <Swiper
-          spaceBetween={30}
-          slidesPerView={'auto'}
-          // onSlideChange={() => console.log('slide change')}
-          onSwiper={(swiper) => console.log(swiper)}
-          // allowHeight={true}
-          scollbar={{ draggable: true }}
-          zoom={true}
-          navigation={true}
-          lazy={true}
-          // pagenation={{ type: 'fraction' }}
-          modules={[Navigation, Lazy, Zoom]}>
-          {detailImages &&
-            detailImages.map((item, index) => {
-              return (
-                <SwiperSlide key={index}>
-                  <div className="swiper-zoom-container">
-                    <ImageContainer src={`${localUrl}media/${item}`} />
-                  </div>
-                </SwiperSlide>
-              );
-            })}
-        </Swiper>
-      </div>
+    <div style={{ marginLeft: '36px' }}>
+      <ContainerStyle>
+        <AliceCarousel
+          mouseTracking
+          items={slideItems}
+          autoWidth
+          disableButtonsControls={true}
+          activeIndex={activeIndex}
+          onSlideChanged={onSlideChanged}
+        />
+      </ContainerStyle>
       <div className="info-area">
         <p className="title">{`| ${title} |`}</p>
         <p className="subtitle">{`| ${subTitle} | ${date}`}</p>
-        {/*<Title>{`| ${title} | ${subTitle} | ${date}`}</Title>*/}
         <DescDetail>{desc}</DescDetail>
       </div>
-    </Container>
+    </div>
   );
 };
 

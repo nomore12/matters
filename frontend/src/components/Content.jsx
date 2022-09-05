@@ -2,25 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { navSlice, setCategory } from 'feature/navSlice';
-import { Detail } from 'pages';
+import { setCategory } from 'feature/navSlice';
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { herokuUrl, localUrl } from '../constant/urls';
+import { localUrl } from '../constant/urls';
 import { getActions } from 'utils/stateUtils';
 import Dropdown from './Dropdown';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { styled as muiStyled } from '@mui/material/styles';
 import { InputBase } from '@mui/material';
-import Button from 'react-bootstrap/Button';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import axios from 'axios';
-import SimpleBar from 'simplebar-react';
-import 'simplebar-react/dist/simplebar.min.css';
-import CustomScroll from 'react-custom-scroll';
 
 const CustomDropdown = muiStyled(InputBase)(({ theme }) => ({
   'label + &': {
@@ -91,6 +80,7 @@ const ScrollBarWrapper = styled(PerfectScrollbar)`
     padding: 0 6px;
     grid-gap: 1rem;
     margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, 240px);
   }
 `;
 

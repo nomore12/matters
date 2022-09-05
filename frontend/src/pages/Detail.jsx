@@ -5,25 +5,43 @@ import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { herokuUrl, localUrl } from '../constant/urls';
-
-import { Navigation, Lazy, Zoom, Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react.js';
-import 'swiper/swiper.min.css'; // core Swiper
-import 'swiper/modules/navigation/navigation.min.css'; // Navigation module
-import 'swiper/modules/pagination/pagination.min.css'; // Pagination module
-
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
 
 const ContainerStyle = styled.div`
+  margin-left: 36px;
+  height: 100%;
+  overflow-y: auto;
+
+  .info-area {
+    max-width: 720px;
+    padding: 0 5px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    margin-left: 0;
+    height: calc(100% + 80px);
+  }
+`;
+
+const CarouselContainerStyle = styled.div`
   width: 720px;
   max-height: 680px;
   display: flex;
   flex-direction: column;
   line-height: 1.1em;
 
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    max-height: 360px;
+  }
+
   .alice-carousel {
     position: relative;
+
+    @media only screen and (max-width: 768px) {
+      width: 100%;
+    }
   }
 
   .alice-carousel__dots {
@@ -82,6 +100,10 @@ const SlideItemStyle = styled.img`
   object-fit: contain;
   max-height: 540px;
   padding: 0 5px;
+
+  @media only screen and (max-width: 768px) {
+    max-height: 360px;
+  }
 `;
 
 const LazyLoader = (props) => {
@@ -191,23 +213,25 @@ const Detail = (props) => {
   });
 
   return (
-    <div style={{ marginLeft: '36px' }}>
-      <ContainerStyle>
-        <AliceCarousel
-          mouseTracking
-          items={slideItems}
-          autoWidth
-          disableButtonsControls={true}
-          activeIndex={activeIndex}
-          onSlideChanged={onSlideChanged}
-        />
-      </ContainerStyle>
-      <div className="info-area">
-        <p className="title">{`| ${title} |`}</p>
-        <p className="subtitle">{`| ${subTitle} | ${date}`}</p>
-        <DescDetail>{desc}</DescDetail>
-      </div>
-    </div>
+    <ContainerStyle>
+      <PerfectScrollbar>
+        <CarouselContainerStyle>
+          <AliceCarousel
+            mouseTracking
+            items={slideItems}
+            autoWidth
+            disableButtonsControls={true}
+            activeIndex={activeIndex}
+            onSlideChanged={onSlideChanged}
+          />
+        </CarouselContainerStyle>
+        <div className="info-area">
+          <p className="title">{`| ${title} |`}</p>
+          <p className="subtitle">{`| ${subTitle} | ${date}`}</p>
+          <DescDetail>{desc}</DescDetail>
+        </div>
+      </PerfectScrollbar>
+    </ContainerStyle>
   );
 };
 
